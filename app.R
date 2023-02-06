@@ -22,9 +22,9 @@ ui <- dashboardPage(
   
   #header 
   header = dashboardHeader(
-    title = "Health Index 2019",
+    title = "Health Index",
     tags$img(src = 'team_grey_png.png',
-             title = "Health Index 2019", height = "30px")
+             title = "Health Index", height = "30px")
     
   ),
   #sidebar

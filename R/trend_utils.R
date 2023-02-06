@@ -89,8 +89,8 @@ sig_diff_df <- function(){
     summarise(p_value = summary(lm(value~ year))$coefficient[,"Pr(>|t|)"]["year"],
            coefficient  = summary(lm(value~ year))$coefficient[,"Estimate"]["year"]) %>% 
     ungroup() %>% 
-    mutate(sig_diff = case_when(p_value >= 0.05 ~ "not significantly different", TRUE ~ "significantly different"),
-           direction = case_when(coefficient > 0 ~ "increase", TRUE ~ "decrease")) #%>% 
+    mutate(sig_diff = case_when(p_value >= 0.05 ~ "not statistically significant", TRUE ~ "statistically significant"),
+           direction = case_when(coefficient > 0 ~ "increasing", TRUE ~ "decreasing")) #%>% 
     # select(-c(p_value, coefficient))
   
 }

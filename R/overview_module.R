@@ -67,7 +67,6 @@ tab_overview_server <- function(id, map_data, area, comparator, mode){
       
       action_value <- reactiveValues(map_shape_click = 0)
       
-      
       observeEvent(input$map_shape_click, {
         
         action_value$map_shape_click <- domain_scores(input$map_shape_click$id[1])
