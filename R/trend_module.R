@@ -21,7 +21,8 @@ tab_trend_mod <- function(id, label = "trend"){
                                     c("County and wider area", "Districts"), 
                                     selected = "County and wider area",
                                     inline = TRUE),
-                       plotlyOutput(ns("graph")))
+                       plotlyOutput(ns("graph")),
+                       verbatimTextOutput(ns("clickedLegendItem")))
           ))
 }
 
@@ -133,19 +134,7 @@ tab_trend_server <- function(id){
         
       })
       
-      myPlotlyProxy <- plotlyProxy("graph")
-      
-      legendClickEvents <- reactive({
-        event_data(source = "A", "plotly_legendclick")
-      })
-      
-      output$clickedLegendItem <- renderPrint({
-        clickedItem <- legendClickEvents()$name
-        if (is.null(clickedItem)){"Clicked item appears here"} else {clickedItem}
-      })
-      
-      output$graph <- renderPlotly({
-        
+         output$graph <- renderPlotly({
         
         if(input$geography_selector == "County and wider area"){
           
@@ -157,7 +146,7 @@ tab_trend_server <- function(id){
             layout(title = paste0("Score for ", tolower(as.character(values$selected))," over time"), 
                    xaxis = list(title = 'Year'), 
                    yaxis = list(title = 'Score', range = c(50, 145))) %>% 
-            event_register('plotly_legendclick') 
+            event_register('plotly_legendclick')
           
         }else if(input$geography_selector == "Districts"){
           
@@ -172,10 +161,25 @@ tab_trend_server <- function(id){
             layout(title = paste0("Score for ", tolower(as.character(values$selected))," over time"), 
                    xaxis = list(title = 'Year'), 
                    yaxis = list(title = 'Score', range = c(50, 145))) %>% 
-            event_register('plotly_legendclick') 
+            event_register('plotly_legendclick')
           
          }
       })
+         
+         
+         myPlotlyProxy <- plotlyProxy("graph")
+         
+         legendClickEvents <- reactive({
+           event_data(event =  "plotly_legendclick", source = "A", )
+         })
+         
+         output$clickedLegendItem <- renderPrint({
+           clickedItem <- legendClickEvents()$name
+           
+           print(clickedItem)
+           # if (is.null(clickedItem)){print("Clicked item appears here")} else {print(paste0("Heres the clicked item: ", clickedItem))}
+         })
+         
       
     })}
         
