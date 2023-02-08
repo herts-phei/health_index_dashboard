@@ -5,8 +5,6 @@ Plan: A link to the related task
  -->
 Project Status: WIP
 
-Plan: ![Task](https://hertscc.managed.mango-solutions.com/git/hcc_phei/phm/health_index_dashboard/-/boards)
-
 ## Summary / User Story
  <!-- templates in PM guide use two spaces to make a line break -->
 
