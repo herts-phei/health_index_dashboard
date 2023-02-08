@@ -1,0 +1,279 @@
+memory profiling: GC profiling: line profiling: sample.interval=10000
+:2012123:3310659:138907496:452:"profvis" 
+:2020132:3353312:140687344:924:"jsonlite::toJSON" "toJSON" "selectizeIt" "selectInput" "profvis" 
+:2035097:3371738:144104968:1602:"css" "htmlwidgets::shinyWidgetOutput" "reactableOutput" "tab_indicators_mod" "profvis" 
+:2044512:3379391:146167560:852:"get0" "getClassDef" "is" ".local" "FUN" "vapply" ".local" "asJSON" "jsonlite::toJSON" "box" "tab_indicators_mod" "profvis" 
+:2060578:3398830:150050208:1649:"any" "profvis" 
+:2074944:3406304:152511520:1099:"lapply" "format.numeric_version" "as.character.numeric_version" "add_bs4Dash_deps" "dashboardPage" "profvis" 
+:2085033:3413477:155075984:952:
+#File 1: <expr>
+:2085442:3418798:155262912:106:"$" "flushPendingSessions" "serviceApp" "runApp" 1#1 "profvis" 
+:2085942:3424745:155490272:128:
+:2085942:3424745:155490272:0:
+:2085942:3424745:155490272:0:
+:2085942:3424745:155490272:0:
+:2085942:3424745:155490272:0:
+:2085945:3425058:155491224:1:".pendingFlush$isEmpty" "hasPendingFlush" "<Anonymous>" "flushReact" "serviceApp" "runApp" 1#1 "profvis" 
+:2088314:3451948:156503984:580:"do" "hybrid_chain" "handler" "func" "compute" "rookCall" "<Anonymous>" 
+:2093512:3453488:158412912:919:"$<-" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "rewriteTags" "tagify" "renderTags" "renderDocument" "renderPage" "<Anonymous>" "handler" "handler" "handler" "handlers$invoke" "handler" "func" "compute" "rookCall" "<Anonymous>" 
+:2103897:3453488:163194080:2199:"isTagEnv" "assertNotTagEnvLike" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "rewriteTags" "takeSingletons" "renderTags" "renderDocument" "renderPage" "<Anonymous>" "handler" "handler" "handler" "handlers$invoke" "handler" "func" "compute" "rookCall" "<Anonymous>" 
+:2111588:3453488:166568192:1791:"resolveFunctionalDependencies" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "findDependencies" "renderTags" "renderDocument" "renderPage" "<Anonymous>" "handler" "handler" "handler" "handlers$invoke" "handler" "func" "compute" "rookCall" "<Anonymous>" 
+:2121421:3462311:170272816:720:"vapply" "order" "FUN" "lapply" "resolveDependencies" "renderTags" "renderDocument" "renderPage" "<Anonymous>" "handler" "handler" "handler" "handlers$invoke" "handler" "func" "compute" "rookCall" "<Anonymous>" 
+:2131131:3470854:172481344:256:"paste" "FUN" "vapply" ".encode_numeric_version" "xtfrm.numeric_version" "FUN" "lapply" "order" "FUN" "lapply" "resolveDependencies" "renderTags" "renderDocument" "renderPage" "<Anonymous>" "handler" "handler" "handler" "handlers$invoke" "handler" "func" "compute" "rookCall" "<Anonymous>" 
+:2144713:3484172:175603064:389:"FUN" "lapply" ".encode_numeric_version" "xtfrm.numeric_version" "FUN" "lapply" "order" "FUN" "lapply" "resolveDependencies" "renderTags" "renderDocument" "renderPage" "<Anonymous>" "handler" "handler" "handler" "handlers$invoke" "handler" "func" "compute" "rookCall" "<Anonymous>" 
+:2153501:3492596:177626680:233:"strrep" "strlpad" "FUN" "vapply" ".encode_numeric_version" "xtfrm.numeric_version" "FUN" "lapply" "order" "FUN" "lapply" "resolveDependencies" "renderTags" "renderDocument" "renderPage" "<Anonymous>" "handler" "handler" "handler" "handlers$invoke" "handler" "func" "compute" "rookCall" "<Anonymous>" 
+:2163829:3496074:180563264:744:"paste0" "concat8" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "FUN" "lapply" "tagWrite" "doRenderTags" "renderTags" "renderDocument" "renderPage" "<Anonymous>" "handler" "handler" "handler" "handlers$invoke" "handler" "func" "compute" "rookCall" "<Anonymous>" 
+:2170609:3497214:182760424:537:"%in%" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "FUN" "lapply" "tagWrite" "doRenderTags" "renderTags" "renderDocument" "renderPage" "<Anonymous>" "handler" "handler" "handler" "handlers$invoke" "handler" "func" "compute" "rookCall" "<Anonymous>" 
+:2181129:3499689:186181744:867:"vapply" "dropNullsOrEmpty" "flattenTagAttribs" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "FUN" "lapply" "tagWrite" "doRenderTags" "renderTags" "renderDocument" "renderPage" "<Anonymous>" "handler" "handler" "handler" "handlers$invoke" "handler" "func" "compute" "rookCall" "<Anonymous>" 
+:2186436:3505386:187965512:434:"vapply" "dropNullsOrEmpty" "flattenTagAttribs" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "FUN" "lapply" "tagWrite" "doRenderTags" "renderTags" "renderDocument" "renderPage" "<Anonymous>" "handler" "handler" "handler" "handlers$invoke" "handler" "func" "compute" "rookCall" "<Anonymous>" 
+:2198238:3512692:191242520:1041:"get0" "dynGet" "loadNamespace" ".rs.getRSConnectDeployments" 
+:2209920:3516101:193309032:395:"order" "FUN" "lapply" "resolveDependencies" "renderDocument" "renderPage" "<Anonymous>" "handler" "handler" "handler" "handlers$invoke" "handler" "func" "compute" "rookCall" "<Anonymous>" 
+:2233152:3523183:197118152:591:"isTRUE" "normalizeStaticPathOptions" "staticPath" "as.staticPath.character" "FUN" "lapply" "normalizeStaticPaths" "<Anonymous>" "addResourcePath" "FUN" "lapply" "renderDocument" "renderPage" "<Anonymous>" "handler" "handler" "handler" "handlers$invoke" "handler" "func" "compute" "rookCall" "<Anonymous>" 
+:2250015:3539012:198376808:764:"structure" "staticPath" "as.staticPath.character" "FUN" "lapply" "normalizeStaticPaths" "<Anonymous>" "addResourcePath" "FUN" "lapply" "renderDocument" "renderPage" "<Anonymous>" "handler" "handler" "handler" "handlers$invoke" "handler" "func" "compute" "rookCall" "<Anonymous>" 
+:2272977:3558247:200578168:1273:"Vectorize" "encodeFunc" "FUN" "vapply" "renderScript" "renderDependencies" "renderDocument" "renderPage" "<Anonymous>" "handler" "handler" "handler" "handlers$invoke" "handler" "func" "compute" "rookCall" "<Anonymous>" 
+:2281168:3558893:202453496:966:"match.call" "rm" "Vectorize" "encodeFunc" "FUN" "vapply" "renderScript" "renderDependencies" "renderDocument" "renderPage" "<Anonymous>" "handler" "handler" "handler" "handlers$invoke" "handler" "func" "compute" "rookCall" "<Anonymous>" 
+:2283868:3571328:203164696:376:
+:2284172:3575397:203303016:78:"service" "serviceApp" "runApp" 1#1 "profvis" 
+:2284575:3580092:203486920:104:
+:2284575:3580092:203486920:0:
+:2284575:3580092:203486920:0:
+:2284575:3580092:203486920:0:
+:2284575:3580092:203486920:0:
+:2284575:3580092:203486920:0:
+:2284867:3583222:203618800:74:"sprintf" "current_loop" "later::next_op_secs" "serviceApp" "runApp" 1#1 "profvis" 
+:2290783:3595649:205997792:1843:"current_loop" "later::next_op_secs" "serviceApp" "runApp" 1#1 "profvis" 
+:2293292:3607650:206952256:603:"parse_string" "parseJSON" "parse_and_simplify" "jsonlite::fromJSON" "safeFromJSON" "decodeMessage" "messageHandler" "handler" "<Anonymous>" 
+:2303826:3610444:209091568:989:"mutate" 
+:2309686:3622445:209912360:633:"readBin" "<Anonymous>" 
+:2313415:3653804:210823032:424:"exists" "usingTools" "findFun" "callFun" "<Anonymous>" "get_data" "detect_new" "rstudio$detect" "cli::num_ansi_colors" "has_ansi" "new_quo_deparser" "expr_deparse" "infix_overflows" "as_label" "dplyr_quosures" "filter.data.frame" 
+:2318635:3659281:212602768:925:"enexpr" "inject" "%<~%" "env_get" "$.r6lite" "method" "self$push_one" "method" "lines$push" "deparser" "sexp_deparse" "deparser" "method" "lines$deparse" "args_deparse" "deparser" "sexp_deparse" "deparser" "method" "lines$deparse" "operand_deparse" "binary_op_deparse" "deparser" "op_deparse" "deparser" "sexp_deparse" "quo_deparse" "expr_deparse" "infix_overflows" "as_label" "dplyr_quosures" "filter.data.frame" 
+:2324144:3659513:216346704:2329:"as_string" "$.r6lite" "method" "self$push_one" "method" "lines$push" "deparser" "sexp_deparse" "deparser" "method" "lines$deparse" "args_deparse" "deparser" "sexp_deparse" "deparser" "method" "lines$deparse" "operand_deparse" "binary_op_deparse" "deparser" "op_deparse" "deparser" "sexp_deparse" "quo_deparse" "expr_deparse" "infix_overflows" "as_label" "dplyr_quosures" "filter.data.frame" 
+:2327973:3659737:218951488:1624:"parent.frame" "caller_env" "%<~%" "env_get" "$.r6lite" "method" "self$push_one" "method" "lines$push" "deparser" "sexp_deparse" "deparser" "method" "lines$deparse" "args_deparse" "deparser" "sexp_deparse" "deparser" "method" "lines$deparse" "operand_deparse" "binary_op_deparse" "deparser" "op_deparse" "deparser" "sexp_deparse" "quo_deparse" "expr_deparse" "infix_overflows" "as_label" "dplyr_quosures" "filter.data.frame" 
+:2337410:3671547:221990720:1536:"strsplit" ".make_numeric_version" "package_version" "<Anonymous>" "callFun" "<Anonymous>" "get_data" "detect_new" "rstudio$detect" "cli::num_ansi_colors" "has_ansi" "new_quo_deparser" "expr_deparse" "as_label_infix" "as_label" "dplyr_quosures" "filter.data.frame" 
+:2343369:3677490:224220640:1191:"enexpr" "inject" "%<~%" "env_get" "$.r6lite" "method" "self$push_one" "method" "self$push" "method" "lines$push_sticky" "args_deparse" "deparser" "sexp_deparse" "quo_deparse" "expr_deparse" "as_label_infix" "as_label" "dplyr_quosures" "filter.data.frame" 
+:2349173:3677772:228203528:2499:"enexpr" "inject" "%<~%" "env_get" "$.r6lite" "method" "lines$push_sticky" "args_deparse" "deparser" "sexp_deparse" "quo_deparse" "expr_deparse" "as_label_infix" "as_label" "dplyr_quosures" "filter.data.frame" 
+:2353042:3678555:230736352:1566:"getOption" "file" "readLines" "tools:::.parse_CITATION_file" "utils:::readCitationFile" 
+:2360480:3688962:233431856:1759:"compute_by" "mutate.data.frame" 
+:2365885:3694087:234464048:769:".deparseOpts" "deparse" "mode" "deparse" "deparse1" "as.data.frame.numeric" "data.frame" "utils::unzip" "<Anonymous>" 
+#File 2: /cloud/project/app.R
+:2369968:3832020:235025672:455:"read_fun" "read_excel_" "read_excel" "get_data" 2#62 "server" "<Anonymous>" "<Anonymous>" "messageHandler" "handler" "<Anonymous>" 
+:2369968:3832170:235034632:1:"read_fun" "read_excel_" "read_excel" "get_data" 2#62 "server" "<Anonymous>" "<Anonymous>" "messageHandler" "handler" "<Anonymous>" 
+:2369968:3858045:236556880:2:"read_fun" "read_excel_" "read_excel" "get_data" 2#62 "server" "<Anonymous>" "<Anonymous>" "messageHandler" "handler" "<Anonymous>" 
+:2374279:3866080:238437360:1501:"eval_sym" "walk_data_tree" "reduce_sels" "eval_c" "walk_data_tree" "vars_select_eval" "eval_select_impl" "tidyselect::eval_select" "select.data.frame" 
+:2375163:3866431:238646464:250:"<GC>" "propagate_names" "sel_operation" "sel_union" "reduce_sels" "eval_c" "walk_data_tree" "vars_select_eval" "eval_select_impl" "tidyselect::eval_select" "select.data.frame" 
+:2023796:3356157:138800480:332:"recycle_columns" "lst_to_tibble" "as_tibble.data.frame" "join_mutate" "left_join.data.frame" 
+#File 3: /cloud/project/R/overview_module.R
+:2032620:3394422:141063832:1638:"promises::with_promise_domain" "ctx$run" "self$.updateValue" "map_data" "module" "callModule" "moduleServer" 3#41 "tab_overview_server" 2#94 "server" "<Anonymous>" "<Anonymous>" "messageHandler" "handler" "<Anonymous>" 
+:2038094:3400429:142819096:978:"expr_interp" "$.r6lite" "method" "lines$push" "deparser" "sexp_deparse" "deparser" "method" "lines$deparse" "deparser" "sexp_deparse" "deparser" "method" "lines$deparse" "operand_deparse" "binary_op_deparse" "deparser" "op_deparse" "deparser" "sexp_deparse" "quo_deparse" "expr_deparse" "infix_overflows" "as_label" "dplyr_quosures" "filter.data.frame" 
+:2039271:3400429:143686872:530:"stopifnot" "method" "lines$push" "deparser" "sexp_deparse" "deparser" "method" "lines$deparse" "args_deparse" "deparser" "sexp_deparse" "deparser" "method" "lines$deparse" "operand_deparse" "binary_op_deparse" "deparser" "op_deparse" "deparser" "sexp_deparse" "quo_deparse" "expr_deparse" "infix_overflows" "as_label" "dplyr_quosures" "filter.data.frame" 
+:2040761:3400517:144689104:632:".Call" 
+:2044801:3400753:147468832:1730:"base::delayedAssign" "%<~%" "env_get" "$.r6lite" "method" "self$set_boundary" "method" "lines$push_sticky" "args_deparse" "deparser" "sexp_deparse" "deparser" "method" "lines$deparse" "operand_deparse" "binary_op_deparse" "deparser" "op_deparse" "deparser" "sexp_deparse" "quo_deparse" "expr_deparse" "infix_overflows" "as_label" "dplyr_quosures" "filter.data.frame" 
+:2048742:3403947:149404808:1112:"sapply" "format.person" "as.character.person" "grepl" "FUN" "vapply" "<Anonymous>" "FUN" "lapply" "bibentry" "utils:::readCitationFile" 
+:2057201:3415776:151949840:1260:"lapply" "bibentry" "utils:::readCitationFile" 
+:2062194:3418560:154093800:1206:"expr_interp" "$.r6lite" "method" "lines$push_sticky" "args_deparse" "deparser" "sexp_deparse" "quo_deparse" "expr_deparse" "as_label_infix" "as_label" "dplyr_quosures" "filter.data.frame" 
+:2067266:3418870:157631880:2212:"env_get" "$.r6lite" "method" "lines$push_sticky" "args_deparse" "deparser" "sexp_deparse" "quo_deparse" "expr_deparse" "as_label_infix" "as_label" "dplyr_quosures" "filter.data.frame" 
+:2072264:3424775:159469520:969:"grepl" "FUN" "vapply" "<Anonymous>" "FUN" "lapply" "bibentry" "utils:::readCitationFile" 
+:2080603:3425641:161978096:1425:".rs.findBreakpointSteps" ".rs.findBreakpointSteps" ".rs.findBreakpointSteps" ".rs.findBreakpointSteps" ".rs.findBreakpointSteps" ".rs.removeBreakpoints" "registerShinyDebugHook" "registerDebugHook" "wrapFunctionLabel" "installExprFunction" "observe" "<Anonymous>" "$<-.shinyoutput" 3#55 "module" "callModule" "moduleServer" 3#41 "tab_overview_server" 2#94 "server" "<Anonymous>" "<Anonymous>" "messageHandler" "handler" "<Anonymous>" 
+:2090493:3426562:163723952:727:"lapply" "assign_func_envs" "Map$new" "initialize" "ReactiveValues$new" "reactiveValues" 3#68 "module" "callModule" "moduleServer" 3#41 "tab_overview_server" 2#94 "server" "<Anonymous>" "<Anonymous>" "messageHandler" "handler" "<Anonymous>" 
+:2101605:3428333:166630576:1679:"$" "rLog$invalidateEnd" "<Anonymous>" "initialize" "Observer$new" "observe" "observeEvent" 3#91 "module" "callModule" "moduleServer" 3#41 "tab_overview_server" 2#94 "server" "<Anonymous>" "<Anonymous>" "messageHandler" "handler" "<Anonymous>" 
+:2110968:3428751:168652400:805:"node_poke_car" "zap_srcref" "zap_srcref" "zap_srcref" "zap_srcref" "zap_srcref" "formalsAndBody" "FUN" "lapply" "markRenderFunction" "createRenderFunction" "renderUI" 3#100 "module" "callModule" "moduleServer" 3#41 "tab_overview_server" 2#94 "server" "<Anonymous>" "<Anonymous>" "messageHandler" "handler" "<Anonymous>" 
+:2130966:3429016:171529120:785:"is_closure" "zap_srcref" "zap_srcref" "zap_srcref" "zap_srcref" "zap_srcref" "zap_srcref" "zap_srcref" "zap_srcref" "zap_srcref" "zap_srcref" "zap_srcref" "zap_srcref" "formalsAndBody" "FUN" "lapply" "markRenderFunction" "shiny::createRenderFunction" "htmlwidgets::shinyRenderWidget" "renderLeaflet" 3#143 "module" "callModule" "moduleServer" 3#41 "tab_overview_server" 2#94 "server" "<Anonymous>" "<Anonymous>" "messageHandler" "handler" "<Anonymous>" 
+:2142546:3429164:173756464:473:"as.list.default" "body<-" "zap_srcref" "formalsAndBody" "FUN" "lapply" "markRenderFunction" "createRenderFunction" "renderUI" 3#198 "module" "callModule" "moduleServer" 3#41 "tab_overview_server" 2#94 "server" "<Anonymous>" "<Anonymous>" "messageHandler" "handler" "<Anonymous>" 
+#File 4: /cloud/project/R/indicators_module.R
+:2157884:3429718:176556744:1000:"markRenderFunction" "createRenderFunction" "renderUI" 4#56 "module" "callModule" "moduleServer" 4#39 "tab_indicators_server" 2#100 "server" "<Anonymous>" "<Anonymous>" "messageHandler" "handler" "<Anonymous>" 
+:2171148:3429921:178463432:538:"$" "self$define" "rLog$defineObserver" "initialize" "Observer$new" "observe" "<Anonymous>" "$<-.shinyoutput" 4#62 "module" "callModule" "moduleServer" 4#39 "tab_indicators_server" 2#100 "server" "<Anonymous>" "<Anonymous>" "messageHandler" "handler" "<Anonymous>" 
+:2187816:3430240:181135248:971:"observe" "<Anonymous>" "$<-.shinyoutput" 4#91 "module" "callModule" "moduleServer" 4#39 "tab_indicators_server" 2#100 "server" "<Anonymous>" "<Anonymous>" "messageHandler" "handler" "<Anonymous>" 
+:2201025:3430472:183000160:661:".Call" 
+:2218894:3432180:186258408:647:"eval" "installExprFunction" "observe" "<Anonymous>" "$<-.shinyoutput" 4#111 "module" "callModule" "moduleServer" 4#39 "tab_indicators_server" 2#100 "server" "<Anonymous>" "<Anonymous>" "messageHandler" "handler" "<Anonymous>" 
+#File 5: /cloud/project/R/trend_module.R
+:2230794:3432574:188073032:600:".rs.findBreakpointSteps" ".rs.findBreakpointSteps" ".rs.findBreakpointSteps" ".rs.findBreakpointSteps" ".rs.findBreakpointSteps" ".rs.findBreakpointSteps" ".rs.findBreakpointSteps" ".rs.findBreakpointSteps" ".rs.findBreakpointSteps" ".rs.removeBreakpoints" "registerShinyDebugHook" "registerDebugHook" "wrapFunctionLabel" "installExprFunction" "observe" "<Anonymous>" "$<-.shinyoutput" 5#42 "module" "callModule" "moduleServer" 5#34 "tab_trend_server" 2#107 "server" "<Anonymous>" "<Anonymous>" "messageHandler" "handler" "<Anonymous>" 
+:2244873:3435155:190982624:995:"as_function" "quoToSimpleFunction" "exprToFunction" "installExprFunction" "observe" "<Anonymous>" "$<-.shinyoutput" 5#63 "module" "callModule" "moduleServer" 5#34 "tab_trend_server" 2#107 "server" "<Anonymous>" "<Anonymous>" "messageHandler" "handler" "<Anonymous>" 
+:2251436:3435348:192114160:344:"srcFileOfRef" "$<-.shinyoutput" 5#100 "module" "callModule" "moduleServer" 5#34 "tab_trend_server" 2#107 "server" "<Anonymous>" "<Anonymous>" "messageHandler" "handler" "<Anonymous>" 
+:2267391:3436432:194688760:715:"get_inherit" "has_private" "Map$new" "initialize" "ReactiveValues$new" "reactiveValues" 5#143 "module" "callModule" "moduleServer" 5#34 "tab_trend_server" 2#107 "server" "<Anonymous>" "<Anonymous>" "messageHandler" "handler" "<Anonymous>" 
+:2278294:3437018:196840112:769:".rs.findBreakpointSteps" ".rs.findBreakpointSteps" ".rs.findBreakpointSteps" ".rs.findBreakpointSteps" ".rs.findBreakpointSteps" ".rs.findBreakpointSteps" ".rs.removeBreakpoints" "registerShinyDebugHook" "registerDebugHook" "wrapFunctionLabel" "<Anonymous>" "$<-.shinyoutput" 5#168 "module" "callModule" "moduleServer" 5#34 "tab_trend_server" 2#107 "server" "<Anonymous>" "<Anonymous>" "messageHandler" "handler" "<Anonymous>" 
+:2289595:3443950:199008264:1005:".Call" "profvis" 
+:2293389:3446584:201141192:1494:"delayedAssign" "profvis" 
+:2300644:3464448:203495656:2257:"vec_as_location" "vectbl_as_col_location" "[.tbl_df" "deduplicate_spec" "pivot_longer_spec" "pivot_longer.data.frame" "profvis" 
+:2306540:3477283:205130576:925:"bibentry" "utils:::readCitationFile" 
+:2314632:3484783:208218864:2146:"eval" "match.arg" "defer" "local_bindings" "walk_data_tree" "reduce_sels" "eval_c" "walk_data_tree" "vars_select_eval" "eval_select_impl" "tidyselect::eval_select" "select.data.frame" "profvis" 
+:2324016:3489825:209949096:1408:"vectbl_restore" "[.tbl_df" "vec_cbind_frame_ptype.default" "<Anonymous>" "vec_cbind" "pivot_longer_spec" "pivot_longer.data.frame" "profvis" 
+:2332337:3500263:212811424:1602:"inject" "%<~%" "env_get" "$.r6lite" "method" "self$push_one" "method" "self$push" "method" "lines$push_sticky" "args_deparse" "deparser" "sexp_deparse" "deparser" "method" "lines$deparse" "operand_deparse" "binary_op_deparse" "deparser" "op_deparse" "deparser" "sexp_deparse" "quo_deparse" "expr_deparse" "infix_overflows" "FUN" "vapply" ".rlang_purrr_map_mold" "map_chr" "case_formula_evaluate" "case_when" "profvis" 
+:2337040:3505803:215080432:1316:"file.info" "file.mtime" "parse" "tools:::.parse_CITATION_file" "utils:::readCitationFile" 
+:2347512:3518117:217995400:1369:"strsplit" ".make_numeric_version" "package_version" "<Anonymous>" "callFun" "<Anonymous>" "get_data" "detect_new" "rstudio$detect" "cli::num_ansi_colors" "has_ansi" "new_quo_deparser" "expr_deparse" "as_label_infix" "FUN" "vapply" ".rlang_purrr_map_mold" "map_chr" "case_formula_evaluate" "case_when" "profvis" 
+:2352168:3521432:220376632:1403:"grepl" "FUN" "vapply" "<Anonymous>" "FUN" "lapply" "bibentry" "utils:::readCitationFile" 
+:2360718:3530105:223540296:1699:"is_bare_atomic" "FUN" "vapply" ".rlang_purrr_map_mold" "map_chr" "case_formula_evaluate" "case_when" "profvis" 
+:2368207:3536184:225533392:841:"<Anonymous>" "inject" "%<~%" "env_get" "$.r6lite" "method" "self$push_one" "method" "self$push" "method" "lines$push_sticky" "binary_op_deparse" "deparser" "op_deparse" "deparser" "sexp_deparse" "quo_deparse" "expr_deparse" "infix_overflows" "FUN" "vapply" ".rlang_purrr_map_mold" "map_chr" "case_formula_evaluate" "case_when" "profvis" 
+:2375738:3542146:229017488:1996:"$.r6lite" "method" "<Anonymous>" "deparser" "sexp_deparse" "deparser" "method" "lines$deparse" "operand_deparse" "binary_op_deparse" "deparser" "op_deparse" "deparser" "sexp_deparse" "deparser" "method" "lines$deparse" "operand_deparse" "binary_op_deparse" "deparser" "op_deparse" "deparser" "sexp_deparse" "quo_deparse" "expr_deparse" "infix_overflows" "FUN" "vapply" ".rlang_purrr_map_mold" "map_chr" "case_formula_evaluate" "case_when" "profvis" 
+:2381527:3548070:231198856:1131:"gsub" "strip_style" "has_overflown" "line_push" "method" "self$push_one" "method" "self$push" "method" "lines$push_sticky" "args_deparse" "deparser" "sexp_deparse" "deparser" "method" "lines$deparse" "operand_deparse" "binary_op_deparse" "deparser" "op_deparse" "deparser" "sexp_deparse" "quo_deparse" "expr_deparse" "infix_overflows" "FUN" "vapply" ".rlang_purrr_map_mold" "map_chr" "case_formula_evaluate" "case_when" "profvis" 
+:2390401:3554051:235669000:2595:"expr_interp" "$.r6lite" "method" "lines$push" "deparser" "sexp_deparse" "deparser" "method" "lines$deparse" "args_deparse" "deparser" "sexp_deparse" "deparser" "method" "lines$deparse" "operand_deparse" "binary_op_deparse" "deparser" "op_deparse" "deparser" "sexp_deparse" "quo_deparse" "expr_deparse" "infix_overflows" "FUN" "vapply" ".rlang_purrr_map_mold" "map_chr" "case_formula_evaluate" "case_when" "profvis" 
+:2394956:3554315:238084560:1461:"as_function" "map" "endots" "enquos" "arrange.data.frame" "profvis" 
+:2396215:3558747:238646464:463:"<GC>" "assign_func_envs" "DataMask$new" "mutate_cols" "mutate.data.frame" "arrange_rows" "arrange.data.frame" "profvis" 
+:2029404:3383428:139115144:20:"<Anonymous>" "expr" "context_local" "local_mask" "initialize" "DataMask$new" "mutate_cols" "mutate.data.frame" "arrange_rows" "arrange.data.frame" "profvis" 
+:2030368:3387682:139476120:227:"eval_select_impl" "tidyselect::eval_select" "eval_select_by" "compute_by" "mutate.data.frame" "arrange_rows" "arrange.data.frame" "profvis" 
+:2033247:3392790:140730856:1090:"lockBinding" "DataMask$new" "mutate_cols" "mutate.data.frame" "arrange_rows" "arrange.data.frame" "profvis" 
+:2043735:3397217:143259984:2713:"names" "profvis" 
+:2048742:3402950:144960256:901:"names" "have_name" "check_filter" "filter.data.frame" "create_comp_data" 2#75 "observe" "<observer>" "contextFunc" "env$runWith" "ctx$run" "run" "flushCallback" "FUN" "lapply" "ctx$executeFlushCallbacks" "<Anonymous>" "flushReact" "serviceApp" "runApp" 1#1 "profvis" 
+:2057522:3412408:147525112:2420:"join_mutate" "left_join.data.frame" "profvis" 
+:2064296:3420622:149337832:1897:"sys.frame" "<Anonymous>" "profvis" 
+:2073783:3432729:151285792:1393:"which" "tbl_subassign_col" "tbl_subassign" "[<-.tbl_df" "join_mutate" "left_join.data.frame" "profvis" 
+:2080809:3440556:153060880:1830:"names2" "ensure_named" "vars_select_eval" "eval_select_impl" "rename_impl" "tidyselect::eval_rename" "rename.data.frame" "profvis" 
+:2093735:3456997:155963920:2467:"eval" "eval" "<Anonymous>" "eval_select_impl" "tidyselect::eval_select" "eval_select_by" "compute_by" "mutate.data.frame" "profvis" 
+:2098845:3464120:157799208:1726:"local_error_call" "as_function" "map" "mask$forget" "mutate_cols" "mutate.data.frame" "profvis" 
+:2106105:3475158:160376384:1787:"duplicated.default" "base::intersect" "intersect.default" "mutate_keep" "mutate.data.frame" "arrange_rows" "arrange.data.frame" "profvis" 
+:2112597:3480285:162131648:1029:"<Anonymous>" "n" "row_number" "profvis" 
+:2120968:3485424:164549280:1734:"parent.frame" "withCallingHandlers" "domain$wrapSync" "promises::with_promise_domain" "captureStackTraces" "shinyCallingHandlers" "flushCallback" "FUN" "lapply" "ctx$executeFlushCallbacks" "<Anonymous>" "flushReact" "serviceApp" "runApp" 1#1 "profvis" 
+:2126094:3485993:166341784:1452:"<Anonymous>" "<Anonymous>" "$.reactivevalues" 3#107 "renderUI" "func" "renderFunc" "output$overview-summary_text" "orig" "func" "observe" "<observer:output$overview-summary_text>" "contextFunc" "env$runWith" "ctx$run" "run" "flushCallback" "FUN" "lapply" "ctx$executeFlushCallbacks" "<Anonymous>" "flushReact" "serviceApp" "runApp" 1#1 "profvis" 
+:2135878:3503121:169064448:1549:"$<-" "crs_parameters" "$.crs" "check_crs" "polygonData.sfc" "polygonData.sf" "derivePolygons" "addPolygons" "profvis" 
+:2147373:3510119:170905224:927:"gsub" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "FUN" "lapply" "shouldEval" "JSEvals" "createPayload" "renderWidget" "transform" "func" "f" "Reduce" "do" "hybrid_chain" "renderFunc" "output$overview-map" "orig" "func" "observe" "<observer:output$overview-map>" "contextFunc" "env$runWith" "ctx$run" "run" "flushCallback" "FUN" "lapply" "ctx$executeFlushCallbacks" "<Anonymous>" "flushReact" "serviceApp" "runApp" 1#1 "profvis" 
+:2157883:3518046:173964336:627:"FUN" "vapply" ".local" "FUN" "vapply" ".local" "FUN" "vapply" ".local" "FUN" "vapply" ".local" "FUN" "vapply" ".local" "FUN" "vapply" ".local" "FUN" "vapply" ".local" "FUN" "vapply" ".local" "FUN" "vapply" ".local" "asJSON" ".local" "asJSON" "jsonlite::toJSON" "func" "toJSON" "renderWidget" "transform" "func" "f" "Reduce" "do" "hybrid_chain" "renderFunc" "output$overview-map" "orig" "func" "observe" "<observer:output$overview-map>" "contextFunc" "env$runWith" "ctx$run" "run" "flushCallback" "FUN" "lapply" "ctx$executeFlushCallbacks" "<Anonymous>" "flushReact" "serviceApp" "runApp" 1#1 "profvis" 
+:2164067:3533128:175999656:556:"FUN" "vapply" ".local" "asJSON" ".local" "asJSON" "jsonlite::toJSON" "toJSON" "private$sendMessage" "observe" "<observer:output$overview-sub_summarybox>" "contextFunc" "env$runWith" "ctx$run" "run" "flushCallback" "FUN" "lapply" "ctx$executeFlushCallbacks" "<Anonymous>" "flushReact" "serviceApp" "runApp" 1#1 "profvis" 
+:2178373:3537391:179529672:1676:"grepl" "htmlEscape" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "tagWrite" "doRenderTags" "processDeps" "transform" "func" "f" "Reduce" "do" "hybrid_chain" "renderFunc" "output$overview-sub_summarybox" "orig" "func" "observe" "<observer:output$overview-sub_summarybox>" "contextFunc" "env$runWith" "ctx$run" "run" "flushCallback" "FUN" "lapply" "ctx$executeFlushCallbacks" "<Anonymous>" "flushReact" "serviceApp" "runApp" 1#1 "profvis" 
+:2184286:3538626:181455680:575:"c" "profvis" 
+:2191329:3543175:184002952:1780:".local" "FUN" "vapply" ".local" "asJSON" ".local" "FUN" "vapply" ".local" "FUN" "vapply" ".local" "FUN" "vapply" ".local" "FUN" "vapply" ".local" "asJSON" ".local" "asJSON" "jsonlite::toJSON" "toJSON" "private$sendMessage" "shinysession$flushOutput" "FUN" "lapply" "flushPendingSessions" "serviceApp" "runApp" 1#1 "profvis" 
+:2194182:3555756:184967440:531:".Call" "profvis" 
+:2194597:3561077:185158456:107:".now" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2195192:3568276:185427760:153:
+:2195192:3568276:185427760:0:
+:2195192:3568276:185427760:0:
+:2195192:3568276:185427760:0:
+:2195192:3568276:185427760:0:
+:2195199:3568589:185433080:2:"Sys.time" ".now" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2195199:3568589:185433080:0:"Sys.time" ".now" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2195199:3568589:185433080:0:"Sys.time" ".now" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2195199:3568589:185433080:0:"Sys.time" ".now" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2195199:3568589:185433080:0:"Sys.time" ".now" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2195199:3568589:185433080:0:"Sys.time" ".now" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2195298:3569557:185475248:24:
+:2195298:3569557:185475248:0:
+:2195298:3569557:185475248:0:
+:2195298:3569557:185475248:0:
+:2195298:3569557:185475248:0:
+:2195298:3569557:185475248:0:
+:2195399:3571122:185521336:26:
+:2195399:3571122:185521336:0:
+:2195876:3576756:185736208:124:"hasPendingFlush" "<Anonymous>" "flushReact" "serviceApp" "runApp" 1#1 "profvis" 
+:2198707:3584041:186766048:781:
+:2198707:3584041:186766048:0:
+:2198707:3584041:186766048:0:
+:2198707:3584041:186766048:0:
+:2198707:3584041:186766048:0:
+:2198707:3584041:186766048:0:
+:2198707:3584041:186766048:0:
+:2199212:3590301:186996208:130:
+:2199212:3590301:186996208:0:
+:2199212:3590301:186996208:0:
+:2199212:3590301:186996208:0:
+:2199212:3590301:186996208:0:
+:2199212:3590301:186996208:0:
+:2199313:3591553:187042240:26:
+:2199313:3591553:187042240:0:
+:2199313:3591553:187042240:0:
+:2199313:3591553:187042240:0:
+:2199313:3591553:187042240:0:
+:2199313:3591553:187042240:0:
+:2199313:3591553:187042240:0:
+:2200025:3600630:187367768:184:"map$as_list" "appsNeedingFlush$values" "flushPendingSessions" "serviceApp" "runApp" 1#1 "profvis" 
+:2202141:3626609:188331136:544:".Call" "profvis" 
+:2205041:3661978:189650216:747:"timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2207018:3687018:190554392:510:"length" "[.data.frame" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2209216:3714562:191556792:565:"map$as_list" "appsNeedingFlush$values" "flushPendingSessions" "serviceApp" "runApp" 1#1 "profvis" 
+:2210632:3732090:192202640:364:"withCallingHandlers" "domain$wrapSync" "promises::with_promise_domain" "captureStackTraces" "runApp" 1#1 "profvis" 
+:2212140:3750557:192888304:388:".Call" "profvis" 
+:2213852:3771528:193667488:441:"service" "serviceApp" "runApp" 1#1 "profvis" 
+:2216587:3805958:194915840:704:"match.fun" "lapply" "flushPendingSessions" "serviceApp" "runApp" 1#1 "profvis" 
+:2218705:3831937:195880384:545:
+:2220124:3849778:196527632:366:"$" "flushPendingSessions" "serviceApp" "runApp" 1#1 "profvis" 
+:2221308:3863550:197066072:305:"serviceApp" "runApp" 1#1 "profvis" 
+:2222666:3881078:197686720:349:"[.data.frame" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2225457:3914882:198956352:718:"length" "profvis" 
+:2226887:3933662:199609144:368:".Call" "profvis" 
+:2228200:3949938:200207672:338:"flushReact" "serviceApp" "runApp" 1#1 "profvis" 
+:2229479:3964962:200788896:331:"dim.data.frame" "nrow" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2231622:3991567:201766264:549:"sprintf" "current_loop" "later::next_op_secs" "serviceApp" "runApp" 1#1 "profvis" 
+:2232542:4003461:202186768:238:".Call" "profvis" 
+:2234449:4026310:203053648:490:"serviceApp" "runApp" 1#1 "profvis" 
+:2235864:4044151:203699608:364:"sprintf" "current_loop" "later::next_op_secs" "serviceApp" "runApp" 1#1 "profvis" 
+:2238031:4071382:204687560:560:"[.data.frame" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2239512:4090162:205363144:380:".Call" "profvis" 
+:2242476:4126470:206713080:764:"[.data.frame" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2243953:4144937:207386816:379:"current_loop" "run_now" "service" "serviceApp" "runApp" 1#1 "profvis" 
+:2245277:4161526:207992736:341:".POSIXct" "Sys.time" ".now" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2246445:4175298:208521320:302:"timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2248653:4202842:209527696:568:"[.data.frame" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2250121:4221622:210199640:378:"map$as_list" "appsNeedingFlush$values" "flushPendingSessions" "serviceApp" "runApp" 1#1 "profvis" 
+:2252320:4247914:211199408:565:"dim" "timerCallbacks$timeToNextEvent" "serviceApp" "runApp" 1#1 "profvis" 
+:2253752:4266381:211853488:369:".Call" "profvis" 
+:2254163:4271702:212042656:106:"withCallingHandlers" "domain$wrapSync" "promises::with_promise_domain" "captureStackTraces" "runApp" 1#1 "profvis" 
+:2255660:4289543:212721656:384:"current_loop" "later::next_op_secs" "serviceApp" "runApp" 1#1 "profvis" 
+:2256479:4300185:213096352:212:
+:2256479:4300185:213096352:0:
+:2256479:4300185:213096352:0:
+:2256479:4300185:213096352:0:
+:2256479:4300185:213096352:0:
+:2256479:4300185:213096352:0:
+:2256479:4300185:213096352:0:
+:2257915:4318026:213751888:370:"[.data.frame" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2260823:4354334:215076176:748:"hasPendingFlush" "<Anonymous>" "flushReact" "serviceApp" "runApp" 1#1 "profvis" 
+:2262335:4372801:215764416:389:".Call" "profvis" 
+:2265271:4409422:217104048:757:"lapply" "flushPendingSessions" "serviceApp" "runApp" 1#1 "profvis" 
+:2266681:4426637:217745696:362:".Call" "profvis" 
+:2268505:4449486:218579480:470:"Sys.time" ".now" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2269966:4467014:219242296:378:"[.data.frame" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2271387:4484542:219888424:365:"[.data.frame" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2272556:4499566:220424904:300:"takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2274750:4526171:221422264:563:"current_loop" "later::next_op_secs" "serviceApp" "runApp" 1#1 "profvis" 
+:2275934:4540882:221961208:308:"anyDuplicated" "[.data.frame" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2277184:4556845:222532912:320:".Call" "profvis" 
+:2277983:4566235:222896184:205:".Call" "profvis" 
+:2279371:4583450:223526912:359:"[.data.frame" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2280711:4600352:224139272:343:"serviceApp" "runApp" 1#1 "profvis" 
+:2282131:4618193:224787248:366:"sprintf" "current_loop" "run_now" "service" "serviceApp" "runApp" 1#1 "profvis" 
+:2283245:4631965:225294888:287:".Call" "profvis" 
+:2285912:4664830:226510256:687:"[" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2287148:4679854:227071936:319:"takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2290016:4716162:228382672:738:"map$as_list" "appsNeedingFlush$values" "flushPendingSessions" "serviceApp" "runApp" 1#1 "profvis" 
+:2291426:4733690:229023648:362:"invisible" "profvis" 
+:2293344:4757165:229898032:494:".Call" "profvis" 
+:2294306:4768746:230335224:249:"length" "[.data.frame" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2296381:4795038:231284760:533:".POSIXct" "Sys.time" ".now" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2297795:4812566:231928928:364:"Sys.time" ".now" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2299916:4838858:232894872:546:"withCallingHandlers" "domain$wrapSync" "promises::with_promise_domain" "captureStackTraces" "runApp" 1#1 "profvis" 
+:2301328:4856386:233537360:364:"$" "flushPendingSessions" "serviceApp" "runApp" 1#1 "profvis" 
+:2302740:4873914:234180240:363:"serviceApp" "runApp" 1#1 "profvis" 
+:2304205:4891442:234847312:379:"[.data.frame" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2305648:4908970:235503800:369:"ifelse" "serviceApp" "runApp" 1#1 "profvis" 
+:2307067:4926498:236150432:365:"timerCallbacks$timeToNextEvent" "serviceApp" "runApp" 1#1 "profvis" 
+:2309908:4962493:237447280:732:".Call" "profvis" 
+:2311317:4979708:238088480:363:"run_now" "service" "serviceApp" "runApp" 1#1 "profvis" 
+:2312538:4995358:238646464:315:"<GC>" "lapply" "flushPendingSessions" "serviceApp" "runApp" 1#1 "profvis" 
+:2312538:4995358:238646464:0:"<GC>" "lapply" "flushPendingSessions" "serviceApp" "runApp" 1#1 "profvis" 
+:2036587:3436298:139913312:336:".Call" "profvis" 
+:2038000:3453826:140557704:364:
+:2040626:3486378:141754536:676:".Call" "profvis" 
+:2040929:3490134:141892632:78:
+:2041464:3496707:142137576:140:"[.data.frame" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2042242:3506410:142491048:198:
+:2042242:3506410:142491048:0:
+:2042242:3506410:142491048:0:
+:2042242:3506410:142491048:0:
+:2042242:3506410:142491048:0:
+:2043015:3515487:142841216:200:"timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2044426:3533015:143484096:364:"anyDuplicated" "[.data.frame" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2046573:3559307:144463480:550:".Call" "profvis" 
+:2048004:3578087:145117840:370:"appsNeedingFlush$values" "flushPendingSessions" "serviceApp" "runApp" 1#1 "profvis" 
+:2050157:3604379:146098064:554:"anyDuplicated" "[.data.frame" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2051658:3623159:146783896:386:"%in%" "[.data.frame" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2053150:3641626:147462504:384:".Call" "profvis" 
+:2054682:3660719:148162224:395:"as.numeric" ".now" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2056963:3688263:149198728:588:"appsNeedingFlush$values" "flushPendingSessions" "serviceApp" "runApp" 1#1 "profvis" 
+:2058465:3707043:149882432:386:"anyDuplicated" "[.data.frame" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2060715:3734900:150908912:577:"current_loop" "later::next_op_secs" "serviceApp" "runApp" 1#1 "profvis" 
+:2061444:3744603:151244128:189:"takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2063542:3769956:152197080:539:"current_loop" "later::next_op_secs" "serviceApp" "runApp" 1#1 "profvis" 
+:2064956:3787484:152841528:364:"current_loop" "later::next_op_secs" "serviceApp" "runApp" 1#1 "profvis" 
+:2067077:3813776:153808704:546:"sprintf" "current_loop" "later::next_op_secs" "serviceApp" "runApp" 1#1 "profvis" 
+:2068406:3830991:154416640:344:"map$as_list" "appsNeedingFlush$values" "flushPendingSessions" "serviceApp" "runApp" 1#1 "profvis" 
+:2071168:3864795:155674064:711:"[.data.frame" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2072577:3882323:156315712:363:"[.data.frame" "takeElapsed" "timerCallbacks$executeElapsed" "serviceApp" "runApp" 1#1 "profvis" 
+:2073653:3895782:156807000:276:".Call" "profvis" 
+:2075591:3907154:157334912:335:".rs.scalar" ".rs.lineDataList" "FUN" "lapply" ".rs.recordTraceback" "<Anonymous>" 
