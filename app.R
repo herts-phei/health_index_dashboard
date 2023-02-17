@@ -58,26 +58,20 @@ server <- function(input, output) {
   
   rv <- reactiveValues()
   rv$data <- get_data()
-  
+  rv$upper_indicators_data <- get_indicators_data("upper")
+  rv$lower_indicators_data <- get_indicators_data("lower")
   
   observe({
     
-    # TODO I've modified create_comp_data so that it produces a dataset for a singular area. 
-    #Then we can make two if there's a comparison and the index will be the same
-    
-    # TODO added rv$mode to use as an arg in tab_overview_server() and in the reactable functions 
-    
-    # TODO This should all trigger reactively as input$comparator_selector is reactive
-    
     if (input$comparator_selector == "No Comparator") {
       rv$create_comp_data <- create_comp_data(data = rv$data, 
-                                              area = input$district_selector) #TODO Cleaned this function
+                                              area = input$district_selector) 
       
-      rv$create_comp_data2 <- data.frame() # TODO added blank just in case 
+      rv$create_comp_data2 <- data.frame()
       rv$mode <- "Gradient" 
       
     } else { 
-      # This way if "No comparator" is not the selection it will trigger a second dataset used for comparison. 
+      # if "No comparator" is not the selection it will trigger a second dataset used for comparison. 
       rv$create_comp_data <- create_comp_data(data = rv$data, 
                                               area = input$district_selector) 
       
@@ -102,7 +96,9 @@ server <- function(input, output) {
                         ltla = reactive(input$district_selector),
                         comparator = reactive(input$comparator_selector))
   
-  tab_trend_server("trend")
+  tab_trend_server("trend",
+                   upper_data = reactive(rv$upper_indicators_data),
+                   lower_data = reactive(rv$lower_indicators_data))
 }
 
 shinyApp(ui, server)

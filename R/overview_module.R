@@ -123,27 +123,37 @@ tab_overview_server <- function(id, map_data, area, comparator, mode){
       
       output$legend <- renderImage({
         
+        legend <- list(src = "www/health_index_gradient.png", contentType = 'image/png')
+        
         if(mode() == "Categorical"){
           
-          list(src = "www/map_legend.png", contentType = 'image/png')
+          legend <- list(src = "www/map_legend.png", contentType = 'image/png')
           
-          
-        }else if(mode() == "Gradient"){
-          
-          list(src = "www/health_index_gradient.png", contentType = 'image/png')
-          
-        }}, deleteFile = FALSE)
+        }
+        
+        legend
+        
+        }, deleteFile = FALSE)
       
-      
-      #https://stackoverflow.com/questions/44334968/click-on-points-in-a-leaflet-map-as-input-for-a-plot-in-shiny
-      
-      #preprocessing for map
+      #pre-processing for map
       
       # render leaflet
       output$map <- renderLeaflet({
-        # browser()
-        
+
         ltla_shp <- readRDS("data/ltla_shp.rds")
+        
+        hi_pal <- colorBin(colorRamp(rev(c("#133959", "#206095", "#8fafca", "#bccfdf"))), domain = map_df$`2019`, bins = 5, right = FALSE, na.color = "transparent")
+        
+        map <- map_df %>%
+          leaflet(options = leafletOptions(minZoom = 10, maxZoom = 15
+                                           ,scrollWheelZoom =  FALSE)) %>% 
+          addProviderTiles(providers$Esri.WorldTopoMap) %>%
+          setView(lng = -0.082395, lat = 51.816811, zoom = 10) %>%
+          addPolygons(data = ltla_shp, layerId = map_df$`Area Name`,
+                      weight = 3, opacity = 0.8,  fillOpacity = 0.8, color = "grey",
+                      fillColor = ~hi_pal(map_df$`2019`),
+                      label = paste(map_df$`Area Name` , "| ",map_df$`2019`)) %>% 
+          mapOptions(zoomToLimits =  "first") 
         
         if(mode() == "Categorical"){
           
@@ -154,12 +164,7 @@ tab_overview_server <- function(id, map_data, area, comparator, mode){
                                      comp_diff > 0 & abs(comp_diff) < 20 ~ "#8FAFCA",
                                      comp_diff > 0 & abs(comp_diff) >= 20 ~ "#206095"))
           
-          # Original palette "#164267", "#457aa7", "#bccfdf",  "#ffc9a5", "#fe781f", "#d0021b"
-          
-          #removed extreme end of palette as there is no sig diff
-          # hi_pal <- colorBin(colorRamp(rev(c("#457aa7", "#bccfdf",  "#ffc9a5", "#fe781f"))), domain = comp_df$comp_diff, bins = 6, right = FALSE, na.color = "transparent")
-          
-          comp_df %>%
+          map <- comp_df %>%
             arrange(`Area Name`) %>% 
             leaflet(options = leafletOptions(minZoom = 10, maxZoom = 15
                                              ,scrollWheelZoom =  FALSE)) %>% 
@@ -169,57 +174,38 @@ tab_overview_server <- function(id, map_data, area, comparator, mode){
                         weight = 3, opacity = 0.8,  fillOpacity = 0.8, color = "grey",
                         fillColor = ~comp_df$color,
                         label = paste(comp_df$`Area Name` , ": ",comp_df$`value`, " | ", comp_df$comp, ": ", comp_df$comp_value)) %>% 
-            mapOptions(zoomToLimits =  "first") #%>% 
-          # suspendScroll(hoverToWake = FALSE) 
-          
-          
-        }else if(mode() == "Gradient"){
-          
-          hi_pal <- colorBin(colorRamp(rev(c("#133959", "#206095", "#8fafca", "#bccfdf"))), domain = map_df$`2019`, bins = 5, right = FALSE, na.color = "transparent")
-          
-          map_df %>%
-            leaflet(options = leafletOptions(minZoom = 10, maxZoom = 15
-                                             ,scrollWheelZoom =  FALSE)) %>% 
-            addProviderTiles(providers$Esri.WorldTopoMap) %>%
-            setView(lng = -0.082395, lat = 51.816811, zoom = 10) %>%
-            addPolygons(data = ltla_shp, layerId = map_df$`Area Name`,
-                        weight = 3, opacity = 0.8,  fillOpacity = 0.8, color = "grey",
-                        fillColor = ~hi_pal(map_df$`2019`),
-                        label = paste(map_df$`Area Name` , "| ",map_df$`2019`)) %>% 
-            mapOptions(zoomToLimits =  "first") #%>% 
-          # suspendScroll(hoverToWake = FALSE) 
-          
+            mapOptions(zoomToLimits =  "first")
         }
+
+        map
       })
       
       #https://gis.stackexchange.com/questions/215342/changing-the-style-of-a-polygon-with-a-click-event-in-a-shiny-leaflet-app
       
-      #https://stackoverflow.com/questions/37881107/shiny-is-there-a-way-to-enable-mouse-wheel-zoom-only-after-click-on-map-in-shin
-      
       output$sub_summarybox <- renderUI({
         
+        
+        herts_value <-  list(104.6, 106.8, 107.2, 99.7, "0000000000000000", "Healthy Lives Domain", "smoking, obesity and sedentary behaviours", "Hertfordshire")
+        
+        summarycards <- fluidRow(width = 6, align = "center",
+                 column(width = 3, summaryBox3("Overall Health Index", herts_value[1], width = 12, icon = "fas fa-chart-bar", style = "info")),
+                 bs4Dash::column(width = 3, summaryBox3("Health People Index", herts_value[2], width = 12, icon = "fas fa-users", style = "secondary")),
+                 bs4Dash::column(width = 3, summaryBox3("Health Lives Index", herts_value[3], width = 12, icon = "fas fa-heartbeat", style = "secondary")),
+                 bs4Dash::column(width = 3, summaryBox3("Health Places Index", herts_value[4], width = 12, icon = "fas fa-map-marker-alt", style = "secondary")))
         
         if(!is.null(input$map_shape_click$id[1])){
           
           score <- area_select()$map_shape_click
           
-          fluidRow(width = 6, align = "center",
+          summarycards <- fluidRow(width = 6, align = "center",
                    column(width = 3, summaryBox3("Overall Health Index", score[1], width = 12, icon = "fas fa-chart-bar", style = "info")),
                    bs4Dash::column(width = 3, summaryBox3("Health People Index", score[2], width = 12, icon = "fas fa-users", style = "secondary")),
                    bs4Dash::column(width = 3, summaryBox3("Health Lives Index", score[3], width = 12, icon = "fas fa-heartbeat", style = "secondary")),
                    bs4Dash::column(width = 3, summaryBox3("Health Places Index", score[4], width = 12, icon = "fas fa-map-marker-alt", style = "secondary")))
           
-        }else{
-          
-          herts_value <-  list(104.6, 106.8, 107.2, 99.7, "0000000000000000", "Healthy Lives Domain", "smoking, obesity and sedentary behaviours", "Hertfordshire")
-          
-          fluidRow(width = 6, align = "center",
-                   column(width = 3, summaryBox3("Overall Health Index", herts_value[1], width = 12, icon = "fas fa-chart-bar", style = "info")),
-                   bs4Dash::column(width = 3, summaryBox3("Health People Index", herts_value[2], width = 12, icon = "fas fa-users", style = "secondary")),
-                   bs4Dash::column(width = 3, summaryBox3("Health Lives Index", herts_value[3], width = 12, icon = "fas fa-heartbeat", style = "secondary")),
-                   bs4Dash::column(width = 3, summaryBox3("Health Places Index", herts_value[4], width = 12, icon = "fas fa-map-marker-alt", style = "secondary")))
-          
         }
+        
+        summarycards
         
       })
       

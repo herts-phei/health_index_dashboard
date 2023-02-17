@@ -76,14 +76,16 @@ tab_indicators_server <- function(id, comp_data, comp_data2, mode, ltla, compara
       
       output$legend <- renderImage({
         
+        legend <- list(src = "www/health_index_gradient.png", contentType = 'image/png')
+        
         if(mode() == "Categorical"){
           
-          list(src = 'www/health_index_legend.png', contentType = 'image/png')
+          legend <- list(src = 'www/health_index_legend.png', contentType = 'image/png')
           
-        }else if(mode() == "Gradient"){
-          
-          list(src = "www/health_index_gradient.png", contentType = 'image/png')
         }
+        
+        legend
+        
       }, deleteFile = FALSE)
       
       #Side plots
@@ -109,7 +111,7 @@ tab_indicators_server <- function(id, comp_data, comp_data2, mode, ltla, compara
       #Main table
       
       output$table <- reactable::renderReactable({
-        #browser()
+
         comp_data() %>%
           reactable(pagination = FALSE,
                     sortable = FALSE,

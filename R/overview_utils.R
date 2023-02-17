@@ -98,9 +98,6 @@ domain_scores <- function(area_select){
 map_comp_data <- function(map_data, comp){
   
   df <- isolate(map_data$df_hioverall) %>% 
-    # filter(`Area Name` %in% c("Broxbourne", "Dacorum", "East Hertfordshire", "Hertsmere", "North Hertfordshire",
-    #                           "Stevenage", "St Albans", "Watford", "Welwyn Hatfield", "Three Rivers", "Uttlesford",
-    #                           "Epping Forest", "Harlow", "Hertfordshire")) %>% 
     select(c(`Area Code`, `Area Name`, "value" = `2019`))
   
   comp_df <- df %>% 

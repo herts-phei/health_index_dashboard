@@ -177,7 +177,6 @@ sig_diff_colour <- function(table_df, col, value, index, comparator, mode){
 # index = 3
 # col_name = "row1"
 
-#TODO same here, merged
 cell_colouring <- function(table_df, value, index, col_name, comparator, mode) {
   
   district_name <- table_df$AreaName[index]

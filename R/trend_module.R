@@ -1,5 +1,3 @@
-#https://stackoverflow.com/questions/21484115/code-profiling-for-shiny-app
-
 tab_trend_mod <- function(id, label = "trend"){
   
   ns <- NS(id)
@@ -27,10 +25,7 @@ tab_trend_mod <- function(id, label = "trend"){
           ))
 }
 
-# https://stackoverflow.com/questions/50726365/how-to-plot-selected-input-from-selectinput-function-in-shiny
-#create go button as trigger for selecting values for graph
-
-tab_trend_server <- function(id){
+tab_trend_server <- function(id, upper_data, lower_data){
   
   moduleServer(
     
@@ -59,16 +54,11 @@ tab_trend_server <- function(id){
         
         relayout <- event_data("plotly_relayout")
         hidden_labels <- relayout$hiddenlabels
-        print(hidden_labels)
-        
+
       })
       
       output$trend_text<-renderUI({
-        #https://stackoverflow.com/questions/52335837/event-when-clicking-a-name-in-the-legend-of-a-plotlys-graph-in-r-shiny/54505531#54505531
-        #https://stackoverflow.com/questions/47405422/r-shiny-and-plotly-getting-legend-click-events
-        
-        
-        
+      
         clickedItem <- "Hertfordshire"
         
         if(!is.null(legendClickEvents()$name)){
@@ -76,26 +66,21 @@ tab_trend_server <- function(id){
           clickedItem <- legendClickEvents()$name
           
           }
-        # browser()
+
         sv <- summary_vals(indicator = values$selected,
                            area = clickedItem)
         
-          if(input$geography_selector == "County and wider area"){
-          
-            text <- paste0("In ", sv$current_year, ", ", clickedItem, "’s score in ", values$selected, " was ", sv$current_year_val, ", this is a ", sv$select_area_last_year_diff_sig, " ", sv$select_area_last_year_change, " from ", sv$last_year, 
-                           ". Overall, there had been a ", sv$trend_direction, " trend in ", clickedItem, " over time which was ", sv$trend_sig, ". ")
+            text <- paste0("In ", sv$current_year, ", ", clickedItem, "’s score in ", values$selected, " was ", sv$current_year_val, ", this is a ", sv$select_area_last_year_diff_sig, " ", sv$select_area_last_year_change, " from ", sv$last_year, ". ")
       
-          }else if(input$geography_selector == "Districts"){
+            if(input$geography_selector == "Districts"){
             
             text <- paste0("For ", values$selected, ", the district that performed the best in the latest year was ", sv$best_ltla_name, "with a score of ", sv$best_ltla_value, ". The district with the lowest score in this domain was ", sv$worst_ltla_name, " with a score of ", sv$worst_ltla_value, ".
-               Since last year, the district that showed the biggest improvement in performance for ", values$selected, " was ", sv$most_improved_name, ", which a ", sv$most_improved_sig_change, " increase can be observed. Oppositely, the district that had the largest decrease in score was ", sv$most_worsened_name, " which the decrease was ", sv$most_worsened_sig_change, ".
-               In ", clickedItem, ", there had been a ", sv$trend_direction, " trend over time which was ", sv$trend_sig, ". ")
+               Since last year, the district that showed the biggest improvement in performance for ", values$selected, " was ", sv$most_improved_name, ", which a ", sv$most_improved_sig_change, " increase can be observed. Oppositely, the district that had the largest decrease in score was ", sv$most_worsened_name, " which the decrease was ", sv$most_worsened_sig_change, ".")
             
           }
           
           p(text, style = "font-family:Bahnschrift,garamond,serif;font-size:18px;font-weight:lighter;")
           
-     
       })
       
       output$domain_selector <- renderUI({
@@ -113,19 +98,32 @@ tab_trend_server <- function(id){
         
         if(input$type_selector == "subdomain"){
           
-          if(input$domain_selector == "Healthy People Domain"){
+          list <- read.csv("data/domain_lookup.csv") %>%
+            filter(domain == "Healthy People Domain") %>%
+            distinct(subdomain) %>%
+            pull(subdomain)
+          
+            # list <-  c("Difficulties in daily life", "Disability", "Frailty", "Mental health", 
+            #            "Children's social, emotional and mental health", "Mental health conditions",
+            #            "Self-harm", "Suicides", "Mortality", "Avoidable mortality", "Infant mortality",
+            #            "Life expectancy", "Mortality from all causes", "Personal well-being",
+            #            "Activities in life are worthwhile", "Feelings of anxiety", "Happiness",
+            #            "Life satisfaction", "Physical health conditions", "Dementia", "Diabetes", 
+            #            "Kidney and liver disease", "Musculoskeletal conditions", "Respiratory conditions")
             
-            list <- read.csv("data/domain_lookup.csv") %>%
-              filter(domain == "Healthy People Domain") %>%
-              distinct(subdomain) %>%
-              pull(subdomain)
-            
-          }else if(input$domain_selector == "Healthy Lives Domain"){
+          if(input$domain_selector == "Healthy Lives Domain"){
             
             list <- read.csv("data/domain_lookup.csv") %>%
               filter(domain == "Healthy Lives Domain") %>%
               distinct(subdomain) %>%
               pull(subdomain)
+            
+            # list <- c("Behavioural risk factors", "Alcohol misuse", "Drug misuse", "Healthy eating", 
+            #           "Physical activity", "Sedentary behaviour", "Sexually transmitted infections",
+            #           "Smoking", "Children and young people", "Early years development", "Pupil absences",
+            #           "Pupil attainment", "Teenage pregnancy", "Young people in education, employment and apprenticeships",
+            #           "Physiological risk factors", "High blood pressure", "Low birth weight", "Overweight and obesity in adults",
+            #           "Overweight and obesity in children", "Protective measures", "Cancer screening attendance", "Child vaccination coverage")
             
           }else if(input$domain_selector == "Healthy Places Domain"){
             
@@ -134,6 +132,12 @@ tab_trend_server <- function(id){
               distinct(subdomain) %>%
               pull(subdomain)
             
+            # list <- c("Access to green space", "Private outdoor space", "Access to services", "Distance to GP services",
+            #          "Distance to pharmacies", "Distance to sports or leisure facilities", "Internet access", 
+            #          "Patients offered acceptable GP practice appointments", "Crime", "Low-level crime",
+            #          "Personal crime", "Economic and working conditions", "Child poverty", "Job-related training",
+            #          "Unemployment", "Workplace safety", "Living conditions", "Air pollution", 
+            #          "Household overcrowding", "Noise complaints", "Road safety", "Rough sleeping")
           }
           
           selectInput(ns("ind_selector"), "Select subdomain", choices = list, selected = list[1])
@@ -151,11 +155,9 @@ tab_trend_server <- function(id){
         
         selected_list <- c(values$indi_type, values$domain, values$subdomain)
         
-        if(selected_list[1] == "overall"){
-          
           values$selected <- "Health Index"
           
-        } else if (selected_list[1] == "domain"){
+        if(selected_list[1] == "domain"){
           
           values$selected <- input$domain_selector
           
@@ -168,34 +170,32 @@ tab_trend_server <- function(id){
       
          output$graph <- renderPlotly({
         
-        if(input$geography_selector == "County and wider area"){
-          
-          data <- get_indicators_data("upper")
-          
-          data %>%
+          graph <- upper_data() %>%
             filter(ind == values$selected) %>%
-            plot_ly(source = "A", x = ~year, y = ~value, type = "scatter", mode = "", color = ~AreaName) %>% 
+            plot_ly(source = "A", x = ~year, y = ~value, type = "scatter", mode = "", color = ~AreaName, colours = "Set2") %>% 
             layout(title = paste0("Score for ", tolower(as.character(values$selected))," over time"), 
                    xaxis = list(title = 'Year'), 
                    yaxis = list(title = 'Score', range = c(50, 145))) %>% 
             event_register('plotly_legendclick')
           
-        }else if(input$geography_selector == "Districts"){
+          if(input$geography_selector == "Districts"){
           
-          data <- get_indicators_data("lower") %>% 
+          data <- lower_data() %>% 
             filter(ind == values$selected)
           
-          plot_ly(source = "A", data = data %>% filter(AreaName %in% c("Broxbourne", "Dacorum", "East Hertfordshire", "Hertsmere", "North Hertfordshire",
+          graph <- plot_ly(source = "A", data = data %>% filter(AreaName %in% c("Broxbourne", "Dacorum", "East Hertfordshire", "Hertsmere", "North Hertfordshire",
                                                          "Stevenage", "St Albans", "Watford", "Welwyn Hatfield", "Three Rivers")),
                   x = ~year, y = ~value, type = "scatter", mode = "", color = ~AreaName, colours = "Set2") %>% 
             add_trace(data = data %>% filter(AreaName %in% c("Uttlesford", "Epping Forest", "Harlow")),
                       x = ~year, y = ~value, type = "scatter", mode = "", color = ~AreaName, visible = "legendonly") %>%
             layout(title = paste0("Score for ", tolower(as.character(values$selected))," over time"), 
                    xaxis = list(title = 'Year'), 
-                   yaxis = list(title = 'Score', range = c(50, 145))) %>% 
-            event_register('plotly_legendclick')
+                   yaxis = list(title = 'Score', range = c(50, 145))) #%>% 
+            # event_register('plotly_legendclick')
           
-         }
+          }
+          
+          graph
       })
          
          myPlotlyProxy <- plotlyProxy("graph")
