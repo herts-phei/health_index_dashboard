@@ -1,7 +1,6 @@
 # install.packages("sf")
 # install.packages("remotes")
 # remotes::install_github("deepanshu88/summaryBox")
-# 
 # library(remotes)
 # install_github("r-spatial/sf")
 

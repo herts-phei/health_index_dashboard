@@ -160,6 +160,7 @@ tab_overview_server <- function(id, map_data, area, comparator, mode){
           # hi_pal <- colorBin(colorRamp(rev(c("#457aa7", "#bccfdf",  "#ffc9a5", "#fe781f"))), domain = comp_df$comp_diff, bins = 6, right = FALSE, na.color = "transparent")
           
           comp_df %>%
+            arrange(`Area Name`) %>% 
             leaflet(options = leafletOptions(minZoom = 10, maxZoom = 15
                                              ,scrollWheelZoom =  FALSE)) %>% 
             addProviderTiles(providers$Esri.WorldTopoMap) %>%

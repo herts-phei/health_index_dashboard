@@ -187,7 +187,7 @@ tab_trend_server <- function(id){
           
           plot_ly(source = "A", data = data %>% filter(AreaName %in% c("Broxbourne", "Dacorum", "East Hertfordshire", "Hertsmere", "North Hertfordshire",
                                                          "Stevenage", "St Albans", "Watford", "Welwyn Hatfield", "Three Rivers")),
-                  x = ~year, y = ~value, type = "scatter", mode = "", color = ~AreaName) %>% 
+                  x = ~year, y = ~value, type = "scatter", mode = "", color = ~AreaName, colours = "Set2") %>% 
             add_trace(data = data %>% filter(AreaName %in% c("Uttlesford", "Epping Forest", "Harlow")),
                       x = ~year, y = ~value, type = "scatter", mode = "", color = ~AreaName, visible = "legendonly") %>%
             layout(title = paste0("Score for ", tolower(as.character(values$selected))," over time"), 
