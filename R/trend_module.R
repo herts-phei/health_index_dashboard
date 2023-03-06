@@ -74,7 +74,7 @@ tab_trend_server <- function(id, upper_data, lower_data){
       
             if(input$geography_selector == "Districts"){
             
-            text <- paste0("For ", values$selected, ", the district that performed the best in the latest year was ", sv$best_ltla_name, "with a score of ", sv$best_ltla_value, ". The district with the lowest score in this domain was ", sv$worst_ltla_name, " with a score of ", sv$worst_ltla_value, ".
+            text <- paste0("For ", values$selected, ", the district that performed the best in the latest year was ", sv$best_ltla_name, " with a score of ", sv$best_ltla_value, ". The district with the lowest score in this domain was ", sv$worst_ltla_name, " with a score of ", sv$worst_ltla_value, ".
                Since last year, the district that showed the biggest improvement in performance for ", values$selected, " was ", sv$most_improved_name, ", which a ", sv$most_improved_sig_change, " increase can be observed. Oppositely, the district that had the largest decrease in score was ", sv$most_worsened_name, " which the decrease was ", sv$most_worsened_sig_change, ".")
             
           }

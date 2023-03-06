@@ -58,7 +58,7 @@ tab_overview_server <- function(id, map_data, area, comparator, mode){
       
       output$intro_text<-renderUI({
         
-        p("This application provides local insights to the ONS Health Index dataset in a Hertfordshire context. The Health Index is comprised of 56 indicators, summarised into 14 subdomains, 3 domains and then the overall score for each geographical area. A score of 100 in the Health Index and its components represents health in England in 2015. A higher number means better health and a lower number means worse health."
+        p("This application provides local insights to the ONS Health Index dataset in a Hertfordshire context. The Health Index is comprised of 56 indicators, summarised into 14 subdomains, 3 domains and then the overall score for each geographical area. A score of 100 in the Health Index and its components represents health in England in 2015, which serves as a baseline figure for subsequent years. A higher number means better health and a lower number means worse health."
           , style = "font-family:Bahnschrift,garamond,serif;font-size:18px;font-weight:lighter;")
       })
       
@@ -201,20 +201,22 @@ tab_overview_server <- function(id, map_data, area, comparator, mode){
         herts_value <-  list(104.6, 106.8, 107.2, 99.7, "0000000000000000", "Healthy Lives Domain", "smoking, obesity and sedentary behaviours", "Hertfordshire")
         
         summarycards <- fluidRow(width = 6, align = "center",
-                 column(width = 3, summaryBox3("Overall Health Index", herts_value[1], width = 12, icon = "fas fa-chart-bar", style = "info")),
-                 bs4Dash::column(width = 3, summaryBox3("Health People Index", herts_value[2], width = 12, icon = "fas fa-users", style = "secondary")),
-                 bs4Dash::column(width = 3, summaryBox3("Health Lives Index", herts_value[3], width = 12, icon = "fas fa-heartbeat", style = "secondary")),
-                 bs4Dash::column(width = 3, summaryBox3("Health Places Index", herts_value[4], width = 12, icon = "fas fa-map-marker-alt", style = "secondary")))
+                 column(width = 4, summaryBox3("Selected Area", "Hertfordshire", width = 12, icon = "fas fa-map-marked-alt", style = "info")),
+                 column(width = 2, summaryBox3("Overall Health Index", herts_value[1], width = 12, icon = "fas fa-chart-bar", style = "info")),
+                 column(width = 2, summaryBox3("Health People Index", herts_value[2], width = 12, icon = "fas fa-users", style = "secondary")),
+                 column(width = 2, summaryBox3("Health Lives Index", herts_value[3], width = 12, icon = "fas fa-heartbeat", style = "secondary")),
+                 column(width = 2, summaryBox3("Health Places Index", herts_value[4], width = 12, icon = "fas fa-map-marker-alt", style = "secondary")))
         
         if(!is.null(input$map_shape_click$id[1])){
           
           score <- area_select()$map_shape_click
           
           summarycards <- fluidRow(width = 6, align = "center",
-                   column(width = 3, summaryBox3("Overall Health Index", score[1], width = 12, icon = "fas fa-chart-bar", style = "info")),
-                   bs4Dash::column(width = 3, summaryBox3("Health People Index", score[2], width = 12, icon = "fas fa-users", style = "secondary")),
-                   bs4Dash::column(width = 3, summaryBox3("Health Lives Index", score[3], width = 12, icon = "fas fa-heartbeat", style = "secondary")),
-                   bs4Dash::column(width = 3, summaryBox3("Health Places Index", score[4], width = 12, icon = "fas fa-map-marker-alt", style = "secondary")))
+                   column(width = 4, summaryBox3("Selected Area", score[8], width = 12, icon = "fas fa-map-marked-alt", style = "info")),
+                   column(width = 2, summaryBox3("Overall Health Index", score[1], width = 12, icon = "fas fa-chart-bar", style = "info")),
+                   column(width = 2, summaryBox3("Health People Index", score[2], width = 12, icon = "fas fa-users", style = "secondary")),
+                   column(width = 2, summaryBox3("Health Lives Index", score[3], width = 12, icon = "fas fa-heartbeat", style = "secondary")),
+                   column(width = 2, summaryBox3("Health Places Index", score[4], width = 12, icon = "fas fa-map-marker-alt", style = "secondary")))
           
         }
         
