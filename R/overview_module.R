@@ -46,11 +46,15 @@ tab_overview_server <- function(id, map_data, area, comparator, mode){
       
       ns <- NS(id)
       
-      map_df <- isolate(map_data()$df_hioverall) %>% 
+      map_df <- isolate(map_data()$df_hioverall) %>%
         filter(`Area Name` %in% c("Broxbourne", "Dacorum", "East Hertfordshire", "Hertsmere", "North Hertfordshire",
                                   "Stevenage", "St Albans", "Watford", "Welwyn Hatfield", "Three Rivers", "Uttlesford",
-                                  "Epping Forest", "Harlow"))
-      
+                                  "Epping Forest", "Harlow")) %>% 
+        mutate(`Area Name` =  factor(`Area Name`, levels = c("Broxbourne", "Dacorum", "East Hertfordshire", "Hertsmere", "North Hertfordshire",
+                                                             "Stevenage", "St Albans", "Watford", "Welwyn Hatfield", "Three Rivers", "Uttlesford",
+                                                             "Epping Forest", "Harlow"))) %>% 
+        select(-`Area Code`) %>% 
+        arrange(`Area Name`) 
       
       output$intro_text<-renderUI({
         
@@ -140,8 +144,13 @@ tab_overview_server <- function(id, map_data, area, comparator, mode){
       # render leaflet
       output$map <- renderLeaflet({
 
-        ltla_shp <- readRDS("data/ltla_shp.rds")
+        ltla_shp <- readRDS("data/ltla_shp.rds") %>%
+          arrange(LAD20NM)
         
+        map_df <- map_df %>%
+          left_join(ltla_shp, by = c("Area Name" = "LAD20NM")) %>%
+          arrange(`Area Name`)
+
         hi_pal <- colorBin(colorRamp(rev(c("#133959", "#206095", "#8fafca", "#bccfdf"))), domain = map_df$`2019`, bins = 5, right = FALSE, na.color = "transparent")
         
         map <- map_df %>%
@@ -157,15 +166,19 @@ tab_overview_server <- function(id, map_data, area, comparator, mode){
         
         if(mode() == "Categorical"){
           
-          comp_df <- map_comp_data(get_data(), comparator()) %>% 
+        comp_df <- map_comp_data(get_data(), comparator()) %>%
+            filter(`Area Name` %in% c("Broxbourne", "Dacorum", "East Hertfordshire", "Hertsmere", "North Hertfordshire",
+                                        "Stevenage", "St Albans", "Watford", "Welwyn Hatfield", "Three Rivers", "Uttlesford",
+                                        "Epping Forest", "Harlow")) %>% 
             mutate(color = case_when(comp_diff == 0 ~ "#FFC9A5",
                                      comp_diff < 0 & abs(comp_diff) < 20 ~ "#FE781F",
                                      comp_diff < 0 & abs(comp_diff) >= 20 ~ "#D0021B",
                                      comp_diff > 0 & abs(comp_diff) < 20 ~ "#8FAFCA",
-                                     comp_diff > 0 & abs(comp_diff) >= 20 ~ "#206095"))
+                                     comp_diff > 0 & abs(comp_diff) >= 20 ~ "#206095")) %>% 
+            left_join(ltla_shp, by = c("Area Name" = "LAD20NM")) %>%
+            arrange(`Area Name`)
           
           map <- comp_df %>%
-            arrange(`Area Name`) %>% 
             leaflet(options = leafletOptions(minZoom = 10, maxZoom = 15
                                              ,scrollWheelZoom =  FALSE)) %>% 
             addProviderTiles(providers$Esri.WorldTopoMap) %>%
