@@ -1,6 +1,5 @@
 # UI ----------------------------------------------------------------------
 
-
 tab_overview_mod <- function(id, label = "overview"){
   
   ns <- NS(id)
@@ -191,12 +190,10 @@ tab_overview_server <- function(id, map_data, area, comparator, mode){
         }
 
         map
+        
       })
       
-      #https://gis.stackexchange.com/questions/215342/changing-the-style-of-a-polygon-with-a-click-event-in-a-shiny-leaflet-app
-      
       output$sub_summarybox <- renderUI({
-        
         
         herts_value <-  list(104.6, 106.8, 107.2, 99.7, "0000000000000000", "Healthy Lives Domain", "smoking, obesity and sedentary behaviours", "Hertfordshire")
         
@@ -226,6 +223,4 @@ tab_overview_server <- function(id, map_data, area, comparator, mode){
       
     })
 }
-
-
 

@@ -21,7 +21,7 @@ ui <- dashboardPage(
   
   #header 
   header = dashboardHeader(
-    title = "Health Index",
+    title = "Health Index 2020 ",
     tags$img(src = 'team_grey_png.png',
              title = "Health Index", height = "30px")
     

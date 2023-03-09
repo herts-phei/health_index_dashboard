@@ -1,3 +1,4 @@
+
 get_params <- function(){
   
   comp_area <- c("Hertfordshire", "Essex", "England")
@@ -14,27 +15,30 @@ get_data <- function(){
   
   data <- list()
   
-  data$df_hioverall <- read_excel("data/healthindex.xlsx", 
-                             sheet = 5, skip = 2) %>% 
+  data$df_hioverall <- read_excel("data/healthindexscoresengland.xlsx", 
+                                  sheet = 5, skip = 2) %>% 
+    select(-`Area Type [Note 3]`) %>% 
     filter(`Area Name` %in% c("Hertfordshire", "Essex", "ENGLAND" , "Broxbourne", "Dacorum", 
                               "East Hertfordshire", "Hertsmere", "North Hertfordshire", "Stevenage",
                               "St Albans", "Watford", "Welwyn Hatfield", "Three Rivers", "Uttlesford",
                               "Epping Forest", "Harlow")) %>% 
     mutate(`Area Name` = gsub("ENGLAND", "England", `Area Name`))
   
-  data$df <- read_excel("data/healthindex.xlsx", 
-                   sheet = 10, skip = 4) %>% 
-    mutate(`Area Name` = gsub("ENGLAND", "England", `Area Name`)) %>% 
-    left_join(select(data$df_hioverall, `2019`, `Area Name`), by = "Area Name") %>% 
-    rename(`Health Index` = `2019`)
+  latest_year_col <- max(colnames(data$df_hioverall)[-c(1:2)])
   
+  data$df <- read_excel("data/healthindexscoresengland.xlsx", 
+                        sheet = 6, skip = 4) %>% 
+    select(-`Area Type [Note 3]`) %>% 
+    mutate(`Area Name` = gsub("ENGLAND", "England", `Area Name`)) %>% 
+    left_join(select(data$df_hioverall, {{latest_year_col}}, `Area Name`), by = "Area Name") %>% 
+    rename(`Health Index` = {{latest_year_col}})
   
   return(data)
 }
 
 wrapper <- function(x, ...) {
-
-    paste(strwrap(x, ...), collapse = "\n")
+  
+  paste(strwrap(x, ...), collapse = "\n")
   
 }
 
@@ -49,14 +53,16 @@ get_indicators_data <- function(geog_level){
                               "Epping Forest", "Harlow")) %>%
     mutate(`Area Name` = gsub("ENGLAND", "England", `Area Name`),
            ind = "Health Index") %>%
-    pivot_longer(cols = c(2:7), names_to = "year") %>%
+    pivot_longer(cols = c(2:(ncol(.)-1)), names_to = "year") %>%
     rename("AreaName" = "Area Name")
+  
+  sheets_num <- length(excel_sheets(path = "data/healthindexscoresengland.xlsx"))
   
   data <- list()
   
-  sheet_num <- 6:11
+  sheet_num <- 6:(sheets_num-1)
   
-  data_year <- c(2015, 2016, 2017, 2018, 2019, 2020)
+  data_year <- rev(unique(hi_df$year))
   
   for( i in 1:length(data_year)){
     

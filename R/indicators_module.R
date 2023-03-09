@@ -91,7 +91,7 @@ tab_indicators_server <- function(id, comp_data, comp_data2, mode, ltla, compara
       #Side plots
       
       output$subdomain1 <- renderPlotly({ 
-        
+
         plot_func(ltla(), comparator(), input$subdomain1_selector)
         
       })
@@ -150,7 +150,7 @@ tab_indicators_server <- function(id, comp_data, comp_data2, mode, ltla, compara
                                      } else (return(value))
 
                                    },
-                                   footer = function() "Source: ONS Health Index Scores 2019",
+                                   footer = function() "Source: ONS Health Index Scores 2020",
                                    align = "left"),
                       row1 = colDef(show = F),
                       row2 = colDef(show = F),
@@ -168,7 +168,6 @@ tab_indicators_server <- function(id, comp_data, comp_data2, mode, ltla, compara
 
                                            style = function(value, index, table_df, col, comparator, mode){
 
-                                             #normalise_comparison errors when run within chunk
                                              #underline colours
                                              color <- sig_diff_colour(table_df = comp_data(),
                                                                       col = "index_value",
@@ -182,7 +181,7 @@ tab_indicators_server <- function(id, comp_data, comp_data2, mode, ltla, compara
                                              } else if (value %in% c(" Healthy People Domain", " Healthy Lives Domain", " Healthy Places Domain")) {
                                                bar_style(fill = color, length = "100%")
                                              } else {
-                                               bar_style(fill = color, length = "100%", bg_colour = "#f7f7f7") #change colours here
+                                               bar_style(fill = color, length = "100%", bg_colour = "#f7f7f7") 
                                              }
                                            }
                       ),

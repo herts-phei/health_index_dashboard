@@ -102,14 +102,6 @@ tab_trend_server <- function(id, upper_data, lower_data){
             filter(domain == "Healthy People Domain") %>%
             distinct(subdomain) %>%
             pull(subdomain)
-          
-            # list <-  c("Difficulties in daily life", "Disability", "Frailty", "Mental health", 
-            #            "Children's social, emotional and mental health", "Mental health conditions",
-            #            "Self-harm", "Suicides", "Mortality", "Avoidable mortality", "Infant mortality",
-            #            "Life expectancy", "Mortality from all causes", "Personal well-being",
-            #            "Activities in life are worthwhile", "Feelings of anxiety", "Happiness",
-            #            "Life satisfaction", "Physical health conditions", "Dementia", "Diabetes", 
-            #            "Kidney and liver disease", "Musculoskeletal conditions", "Respiratory conditions")
             
           if(input$domain_selector == "Healthy Lives Domain"){
             
@@ -118,13 +110,6 @@ tab_trend_server <- function(id, upper_data, lower_data){
               distinct(subdomain) %>%
               pull(subdomain)
             
-            # list <- c("Behavioural risk factors", "Alcohol misuse", "Drug misuse", "Healthy eating", 
-            #           "Physical activity", "Sedentary behaviour", "Sexually transmitted infections",
-            #           "Smoking", "Children and young people", "Early years development", "Pupil absences",
-            #           "Pupil attainment", "Teenage pregnancy", "Young people in education, employment and apprenticeships",
-            #           "Physiological risk factors", "High blood pressure", "Low birth weight", "Overweight and obesity in adults",
-            #           "Overweight and obesity in children", "Protective measures", "Cancer screening attendance", "Child vaccination coverage")
-            
           }else if(input$domain_selector == "Healthy Places Domain"){
             
             list <- read.csv("data/domain_lookup.csv") %>%
@@ -132,12 +117,6 @@ tab_trend_server <- function(id, upper_data, lower_data){
               distinct(subdomain) %>%
               pull(subdomain)
             
-            # list <- c("Access to green space", "Private outdoor space", "Access to services", "Distance to GP services",
-            #          "Distance to pharmacies", "Distance to sports or leisure facilities", "Internet access", 
-            #          "Patients offered acceptable GP practice appointments", "Crime", "Low-level crime",
-            #          "Personal crime", "Economic and working conditions", "Child poverty", "Job-related training",
-            #          "Unemployment", "Workplace safety", "Living conditions", "Air pollution", 
-            #          "Household overcrowding", "Noise complaints", "Road safety", "Rough sleeping")
           }
           
           selectInput(ns("ind_selector"), "Select subdomain", choices = list, selected = list[1])
@@ -190,8 +169,7 @@ tab_trend_server <- function(id, upper_data, lower_data){
                       x = ~year, y = ~value, type = "scatter", mode = "", color = ~AreaName, visible = "legendonly") %>%
             layout(title = paste0("Score for ", tolower(as.character(values$selected))," over time"), 
                    xaxis = list(title = 'Year'), 
-                   yaxis = list(title = 'Score', range = c(50, 145))) #%>% 
-            # event_register('plotly_legendclick')
+                   yaxis = list(title = 'Score', range = c(50, 145))) 
           
           }
           

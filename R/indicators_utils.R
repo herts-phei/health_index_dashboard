@@ -1,7 +1,11 @@
 
 # Processing --------------------------------------------------------------
 
-# Process data for comparison table 
+#Process data for comparison table
+
+# data <- get_data()
+# area <- "Broxbourne"
+# create_comp_data( get_data(), "Broxbourne")
 
 create_comp_data <- function(data, area){
   
@@ -19,7 +23,12 @@ create_comp_data <- function(data, area){
   # Df to order the indicators for the table
   df1 <- df %>% 
     filter(`Area Name` == area) %>% 
-    select(3:19, `Health Index`) %>% 
+    # select(3:19, `Health Index`) %>% 
+    select( "Health Index", "Healthy People Domain", "Difficulties in daily life [Pe]", "Mental health [Pe]", "Mortality [Pe]",
+            "Personal well-being [Pe]", "Physical health conditions [Pe]", "Healthy Lives Domain",
+            "Behavioural risk factors [L]", "Children and young people [L]", "Physiological risk factors [L]", "Protective measures [L]",
+            "Healthy Places Domain", "Access to green space [Pl]", "Access to services [Pl]", "Crime [Pl]",
+            "Economic and working conditions [Pl]", "Living conditions [Pl]") %>%
     pivot_longer(cols = colnames(.), names_to = "ind") %>% 
     mutate(ind = case_when(ind %in% c("Healthy People Domain", "Healthy Lives Domain", "Healthy Places Domain") ~ 
                              paste0(" ", ind), 
@@ -34,29 +43,8 @@ create_comp_data <- function(data, area){
     select(`Area Name`, ind, value, everything()) %>% 
     rename("index_value" = "value") 
   
-  # Df to set order and names of colored tiles for each indicator of each domain
-  df2 <-  data.frame(row1 = c("Indicators", " ", "Frailty", "Self-harm", "Life expectancy",  "Activities in life are worthwhile ",
-                              "Cancer", " ", "Smoking", "Early years development", "High blood pressure",
-                              "Child vaccination coverage", " ", "Public green space", "Internet access",
-                              "Low-level crime", "Unemployment", "Road safety"),
-                     row2 = c(" ", " ", "Disability", "Suicides", "Avoidable mortality", "Life satisfaction",
-                              "Respiratory conditions", " ", "Physical activity", "Pupil attainment",
-                              "Overweight and obesity in adults", "Cancer screening attendance", " ",
-                              "Private outdoor space", "Distance to pharmacies", "Personal crime",
-                              "Workplace safety", "Noise complaints"),
-                     row3 = c(" ", " ", " ","Children's social, emotional, and mental health", "Infant mortality", "Happiness",
-                              "Diabetes", " ", "Sedentary behaviour",  "Teenage pregnancy", "Overweight and obesity in children",
-                              "Sexually transmitted infections", " ", " ","Distance to sports or leisure facilities", " ",
-                              "Child poverty", "Household overcrowding"),
-                     row4 = c(" ", " ", " ", "Mental health conditions", " ", "Feelings of anxiety", "Kidney and liver disease", " ", "Alcohol misuse",
-                              "Young people in education, employment and apprenticeships",  " ", " ", " ", " ",
-                              "Distance to GP services", " ", "Housing affordability", "Air pollution"),
-                     row5 = c(" ", " ", " ", " ", " ", " ", "Dementia", " ", "Drug misuse", "Pupil absences", " ", " ", " ", " ", " ", " ",
-                              "Job-related training", "Rough sleeping"),
-                     row6 = c(" ", " ", " ", " ", " ", " ", "Cardiovascular conditions", " ", "Healthy eating", "Low birth weight",
-                              " ", " ", " ", " ", " ", " ", " ", " "),
-                     row7 = c(" ", " ", " ", " ", " ", " ", "Musculoskeletal conditions", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "))
-  
+  # df to set order and names of colored tiles for each indicator of each domain
+  df2 <-  read.csv("data/indicators_table.csv")
   
   df_pivot_temp <- filter(df_pivot, AreaName == area) %>% 
     select(-AreaName)
@@ -104,9 +92,6 @@ index_pal <- function(x) {
   else return("#ffffff")
 }
 
-#TODO apparently you CAN feed in values from the module environment to these functions called within reactable so I've 
-# combined the normalise_local and normalise_comparison using if else statement and mode(). That way we dont need to 
-# copy paste the reactable() code twice as we previously thought.
 
 sig_diff_colour <- function(table_df, col, value, index, comparator, mode){
   
@@ -129,16 +114,15 @@ sig_diff_colour <- function(table_df, col, value, index, comparator, mode){
     # Categorical
     district_name <- table_df$AreaName[index]
     
-    #TODO moved the differentiating in diff_table to here since normalise is always the function that uses it.
     original <- as.vector(
       stats::na.omit(
-          unlist(table_df[, c(3, 13:19)])
-        )
+        unlist(table_df[, c(3, 13:19)])
       )
+    )
     
     comp <- as.vector(
       stats::na.omit(
-          unlist(comparator[, c(3, 13:19)])
+        unlist(comparator[, c(3, 13:19)])
       )
     )
     
@@ -148,19 +132,19 @@ sig_diff_colour <- function(table_df, col, value, index, comparator, mode){
     if(value == 0 | is.na(value) == T){ #if zero, it's exactly the same -> amber. 
       
       color <- "#FFC9A5"
-      
+        
     } else if(value < 0 & abs(value) < 20){ #if negative and smaller than 20 (SD for 95% CI), it means health is not significantly worse 
       
       color <- "#FE781F"
-      
+        
     }else if(value < 0 & abs(value) >= 20){ #if negative and bigger or equal to 20 (SD for 95% CI), it means health is significantly worse 
       
       color <- "#D0021B"
-      
+        
     }else if(value > 0 & abs(value) < 20){ #if positive and smaller than 20 (SD for 95% CI), it means health is better 
       
       color <- "#8FAFCA"
-      
+        
     }else if(value > 0 & abs(value) >= 20){ #if positive and bigger or equal to 20 (SD for 95% CI), it means health is significantly better 
       
       color <- "#206095"
@@ -173,6 +157,7 @@ sig_diff_colour <- function(table_df, col, value, index, comparator, mode){
 }
 
 # Custom function for rendering colored cells with tooltips
+
 # value = 102.1
 # index = 3
 # col_name = "row1"
@@ -187,11 +172,11 @@ cell_colouring <- function(table_df, value, index, col_name, comparator, mode) {
   if (mode == "Gradient") {
     
     color <- sig_diff_colour(table_df = table_df, 
-                       col = paste0("value", num),
-                       value = table_df[[paste0("value", num)]][index], 
-                       index = index, 
-                       comparator = comparator, 
-                       mode = mode)
+                             col = paste0("value", num),
+                             value = table_df[[paste0("value", num)]][index], 
+                             index = index, 
+                             comparator = comparator, 
+                             mode = mode)
     
     tippy(div(
       style = paste0("cursor: info; white-space: nowrap; overflow: hidden; height: 100%; background: ", color, ";")
@@ -205,11 +190,11 @@ cell_colouring <- function(table_df, value, index, col_name, comparator, mode) {
     
     
     color <- sig_diff_colour(table_df = table_df, 
-                       col = paste0("value", num),
-                       value = table_df[[paste0("value", num)]][index], 
-                       index = index, 
-                       comparator = comparator, 
-                       mode = mode)
+                             col = paste0("value", num),
+                             value = table_df[[paste0("value", num)]][index], 
+                             index = index, 
+                             comparator = comparator, 
+                             mode = mode)
     
     comp_a <- comparator$AreaName[index]
     
@@ -233,7 +218,7 @@ cell_colouring <- function(table_df, value, index, col_name, comparator, mode) {
   }
   
 }
-  
+
 # Custom function for making the coloured indicators at the start of each row
 bar_style <- function(fill, length = "2.5%", colour = NULL, bg_colour = NULL) {
   image <- sprintf("linear-gradient(90deg, %1$s %2$s, transparent %2$s)", fill, length)
@@ -267,16 +252,20 @@ figure <- function(table_df, index, col) {
 }
 
 
-plot_func <- function(ltla, comparator, subdomain){
+# ltla <- "Broxbourne"
+# comparator <- "Hertfordshire"
+# subdomain <- "Access to green space"
 
-  ltla_df <-  create_comp_data(data = get_data(), area = ltla) %>% 
+plot_func <- function(ltla, comparator, subdomain){
+  
+  ltla_df <- create_comp_data(data = get_data(), area = ltla) %>% 
     filter(ind %in% subdomain)
   
   utla_df <-  create_comp_data(data = get_data(), area = comparator) %>% 
     filter(ind %in% subdomain)
   
   combined_df <- rbind(ltla_df, utla_df) %>% 
-    discard(~all(is.na(.) | . ==" ")) %>% 
+    discard(~all(is.na(.) | . == " " |  . == "")) %>% 
     select(-c(row_id, order_ind, index_value)) 
   
   n_indicators <- 1:ncol(combined_df %>% select(starts_with("row")))
@@ -288,7 +277,7 @@ plot_func <- function(ltla, comparator, subdomain){
     combined_df <- combined_df %>% 
       mutate(!!new_cols  := paste0(get(paste0("row",i)), ";", get(paste0("value",i)))) %>% 
       select(-c(paste0("row",i), paste0("value",i)))
-    }
+  }
   
   plot_df <- combined_df %>% 
     pivot_longer(cols = starts_with("new"), names_to = "del", values_to = "new") %>% 
