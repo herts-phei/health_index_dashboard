@@ -18,15 +18,15 @@ tab_indicators_mod <- function(id, label = "indicators"){
                      box(width = 12, title = "Healthy People Domain", align = "left", collapsed = FALSE,
                          htmlOutput(ns("bar_text1")),
                          selectInput(ns("subdomain1_selector"), "Select a subdomain", choices = c("Difficulties in daily life", "Mental health", "Mortality", "Personal well-being", "Physical health conditions"), selected = "Difficulties in daily life"),
-                         plotlyOutput(ns("subdomain1"))),
+                         uiOutput(ns("subdomain1"))),
                      box(width = 12, title = "Healthy Lives Domain", align = "left", collapsed = TRUE,
                          htmlOutput(ns("bar_text2")),
                          selectInput(ns("subdomain2_selector"), "Select a subdomain", choices = c("Behavioural risk factors", "Children and young people", "Physiological risk factors", "Protective measures"), selected = "Behavioural risk factors"),
-                         plotlyOutput(ns("subdomain2"))),
+                         uiOutput(ns("subdomain2"))),
                      box(width = 12, title = "Healthy Places Domain", align = "left", collapsed = TRUE,
                          htmlOutput(ns("bar_text3")),
                          selectInput(ns("subdomain3_selector"), "Select a subdomain", choices = c("Access to green space", "Access to services", "Crime", "Economic and working conditions", "Living conditions"), selected = "Access to green space"),
-                         plotlyOutput(ns("subdomain3"))))
+                         uiOutput(ns("subdomain3"))))
               
             ))}
 
@@ -55,19 +55,19 @@ tab_indicators_server <- function(id, comp_data, comp_data2, mode, ltla, compara
       
       output$bar_text1<-renderUI({
         
-        p("The bar chart below shows indicator scores of indicators in the selected subdomain.
+        p("The bar chart below shows scores of indicators in the selected subdomain for the chosen district and comparator.
           ", style = "font-family:Bahnschrift,garamond,serif;font-size:18px;font-weight:lighter;")
       })
       
       output$bar_text2<-renderUI({
         
-        p("The bar chart below shows indicator scores of indicators in the selected subdomain.
+        p("The bar chart below shows scores of indicators in the selected subdomain for the chosen district and comparator.
           ", style = "font-family:Bahnschrift,garamond,serif;font-size:18px;font-weight:lighter;")
       })
       
       output$bar_text3<-renderUI({
         
-        p("The bar chart below shows indicator scores of indicators in the selected subdomain.
+        p("The bar chart below shows scores of indicators in the selected subdomain for the chosen district and comparator.
           ", style = "font-family:Bahnschrift,garamond,serif;font-size:18px;font-weight:lighter;")
       })
       
@@ -89,25 +89,37 @@ tab_indicators_server <- function(id, comp_data, comp_data2, mode, ltla, compara
       }, deleteFile = FALSE)
       
       #Side plots
-      
-      output$subdomain1 <- renderPlotly({ 
 
-        plot_func(ltla(), comparator(), input$subdomain1_selector)
+      output$subdomain1 <- renderUI({
+        
+      if(mode() == "Categorical"){
+          
+          plot_func(ltla(), comparator(), input$subdomain1_selector)
+        
+          }
         
       })
       
-      output$subdomain2 <- renderPlotly({ 
+      output$subdomain2 <- renderUI({
         
-        plot_func(ltla(), comparator(), input$subdomain2_selector)
-        
-      })
-      
-      output$subdomain3 <- renderPlotly({ 
-        
-        plot_func(ltla(), comparator(), input$subdomain3_selector)
+        if(mode() == "Categorical"){
+          
+          plot_func(ltla(), comparator(), input$subdomain2_selector)
+          
+        }
         
       })
       
+      output$subdomain3 <- renderUI({
+        
+        if(mode() == "Categorical"){
+          
+          plot_func(ltla(), comparator(), input$subdomain3_selector)
+          
+        }
+        
+      })
+
       #Main table
       
       output$table <- reactable::renderReactable({
