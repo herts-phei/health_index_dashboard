@@ -258,6 +258,12 @@ figure <- function(table_df, index, col) {
 
 plot_func <- function(ltla, comparator, subdomain){
   
+  if(comparator == "No Comparator"){
+    
+    return(paste0(" "))
+    
+  }else{
+    
   ltla_df <- create_comp_data(data = get_data(), area = ltla) %>% 
     filter(ind %in% subdomain)
   
@@ -295,7 +301,7 @@ plot_func <- function(ltla, comparator, subdomain){
     layout(legend = list(orientation = 'h', xanchor = "center", x = 0.5, y= 1.09)) 
   
   return(graph)
-  
+  }
 }
 
 
