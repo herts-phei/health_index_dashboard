@@ -25,6 +25,7 @@ tab_overview_mod <- function(id, label = "overview"){
               title = "Map",
               width = 8,
               align = "left",
+              selectInput(ns("comparator_selector"), "Select comparator", choices = c("No Comparator", "Hertfordshire", "Essex", "England"), selected = "No Comparator"),
               leafletOutput(ns("map"), width = "100%", height = 660),
               fluidRow(column(width = 6, align = "left",imageOutput(ns("legend"), height = 85)),
                        column(width = 6, align = "right", actionButton(ns("reset"), "Reset to Hertfordshire")))
@@ -35,7 +36,8 @@ tab_overview_mod <- function(id, label = "overview"){
 
 # Server ------------------------------------------------------------------
 
-tab_overview_server <- function(id, map_data, area, comparator, mode){
+tab_overview_server <- function(id, map_data #, area, comparator, mode
+                                ){
   
   moduleServer(
     
@@ -71,8 +73,8 @@ tab_overview_server <- function(id, map_data, area, comparator, mode){
       action_value <- reactiveValues(map_shape_click = 0)
       
       observeEvent(input$map_shape_click, {
-        
-        action_value$map_shape_click <- domain_scores(input$map_shape_click$id[1])
+
+                action_value$map_shape_click <- domain_scores(input$map_shape_click$id[1])
         
       })
       
@@ -128,7 +130,7 @@ tab_overview_server <- function(id, map_data, area, comparator, mode){
         
         legend <- list(src = "www/health_index_gradient.png", contentType = 'image/png')
         
-        if(mode() == "Categorical"){
+        if(!input$comparator_selector == "No Comparator"){
           
           legend <- list(src = "www/map_legend.png", contentType = 'image/png')
           
@@ -163,9 +165,9 @@ tab_overview_server <- function(id, map_data, area, comparator, mode){
                       label = paste(map_df$`Area Name` , "| ",map_df$`2019`)) %>% 
           mapOptions(zoomToLimits =  "first") 
         
-        if(mode() == "Categorical"){
+        if(!input$comparator_selector == "No Comparator"){
           
-        comp_df <- map_comp_data(get_data(), comparator()) %>%
+        comp_df <- map_comp_data(get_data(), input$comparator_selector) %>%
             filter(`Area Name` %in% c("Broxbourne", "Dacorum", "East Hertfordshire", "Hertsmere", "North Hertfordshire",
                                         "Stevenage", "St Albans", "Watford", "Welwyn Hatfield", "Three Rivers", "Uttlesford",
                                         "Epping Forest", "Harlow")) %>% 

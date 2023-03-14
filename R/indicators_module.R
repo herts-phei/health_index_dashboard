@@ -12,6 +12,11 @@ tab_indicators_mod <- function(id, label = "indicators"){
                      box(width = 12, align = "center", offset = 0, 
                          column(width = 12, align = "left", 
                                 htmlOutput(ns("text"))),
+                         fluidRow(column(width = 6, align = "left", 
+                                selectInput(ns("district_selector"), "Select district", choices = c("Broxbourne", "Dacorum", "East Hertfordshire", "Hertsmere", "North Hertfordshire",
+                                                                                         "Stevenage", "St Albans", "Watford", "Welwyn Hatfield", "Three Rivers", "Uttlesford",
+                                                                                         "Epping Forest", "Harlow"), selected = "Broxbourne")),
+                         column(width = 6, align = "left", selectInput(ns("comparator_selector"), "Select comparator", choices = c("No Comparator", "Hertfordshire", "Essex", "England"), selected = "No Comparator"))),
                          imageOutput(ns("legend"), height = 85),
                          reactableOutput(ns("table")))),
               column(width = 4, 
@@ -33,7 +38,8 @@ tab_indicators_mod <- function(id, label = "indicators"){
 
 # Server ------------------------------------------------------------------
 
-tab_indicators_server <- function(id, comp_data, comp_data2, mode, ltla, comparator){
+tab_indicators_server <- function(id #comp_data, comp_data2, mode, ltla, comparator
+                                  ){
 
   
   moduleServer(
@@ -43,6 +49,28 @@ tab_indicators_server <- function(id, comp_data, comp_data2, mode, ltla, compara
     function(input, output, session) {
       
       ns <- NS(id)
+      
+      backing_data <- reactiveValues()
+
+      observe({
+        
+      if (input$comparator_selector == "No Comparator") {
+        backing_data$comp_data <- create_comp_data(data = get_data(), 
+                                                area = input$district_selector) 
+        
+        backing_data$comp_data2 <- data.frame()
+        backing_data$mode <- "Gradient" 
+        
+      } else { 
+        # if "No comparator" is not the selection it will trigger a second dataset used for comparison. 
+        backing_data$comp_data <- create_comp_data(data = get_data(), 
+                                                area = input$district_selector) 
+        
+        backing_data$comp_data2 <- create_comp_data(data = get_data(), 
+                                                 area = input$comparator_selector) 
+        backing_data$mode <- "Categorical"
+      }
+      })
       
       #Intro text 
       
@@ -78,7 +106,7 @@ tab_indicators_server <- function(id, comp_data, comp_data2, mode, ltla, compara
         
         legend <- list(src = "www/health_index_gradient.png", contentType = 'image/png')
         
-        if(mode() == "Categorical"){
+        if(backing_data$mode == "Categorical"){
           
           legend <- list(src = 'www/health_index_legend.png', contentType = 'image/png')
           
@@ -92,39 +120,48 @@ tab_indicators_server <- function(id, comp_data, comp_data2, mode, ltla, compara
 
       output$subdomain1 <- renderUI({
         
-      if(mode() == "Categorical"){
+      if(backing_data$mode == "Categorical"){
           
-          plot_func(ltla(), comparator(), input$subdomain1_selector)
+          plot_func(ltla = input$district_selector, comparator = input$comparator_selector, subdomain = input$subdomain1_selector)
+        
+          }else{
+            
+            plot_func(ltla = input$district_selector, subdomain = input$subdomain1_selector)
         
           }
-        
       })
       
       output$subdomain2 <- renderUI({
         
-        if(mode() == "Categorical"){
+        if(backing_data$mode == "Categorical"){
           
-          plot_func(ltla(), comparator(), input$subdomain2_selector)
+          plot_func(ltla = input$district_selector, comparator = input$comparator_selector, subdomain = input$subdomain2_selector)
           
-        }
+        }else{
+          
+        plot_func(ltla = input$district_selector, subdomain = input$subdomain2_selector)
         
+        }
       })
       
       output$subdomain3 <- renderUI({
         
-        if(mode() == "Categorical"){
+        if(backing_data$mode == "Categorical"){
           
-          plot_func(ltla(), comparator(), input$subdomain3_selector)
+          plot_func(ltla = input$district_selector, comparator = input$comparator_selector, subdomain = input$subdomain3_selector)
           
-        }
+        }else{
+          
+        plot_func(ltla = input$district_selector, subdomain = input$subdomain3_selector)
         
+        }
       })
 
       #Main table
       
       output$table <- reactable::renderReactable({
 
-        comp_data() %>%
+        backing_data$comp_data %>%
           reactable(pagination = FALSE,
                     sortable = FALSE,
                     bordered = FALSE,
@@ -139,9 +176,9 @@ tab_indicators_server <- function(id, comp_data, comp_data2, mode, ltla, compara
                       footerStyle = list(fontSize = 17)
                     ),
                     rowStyle = function(index) {
-                      if (comp_data()[index, "ind"] %in% c(" Healthy People Domain", " Healthy Lives Domain", " Healthy Places Domain")) {
+                      if (backing_data$comp_data[index, "ind"] %in% c(" Healthy People Domain", " Healthy Lives Domain", " Healthy Places Domain")) {
                         list(fontWeight = "bold", fontSize = 20, font = "Bahnschrift")
-                      } else if (comp_data()[index, "ind"] == " Health Index") {
+                      } else if (backing_data$comp_data[index, "ind"] == " Health Index") {
                         list(fontWeight = "bold", backgroundColor = "#f7f7f7", fontSize = 24, font = "Bahnschrift")
                       }
                     },
@@ -175,18 +212,18 @@ tab_indicators_server <- function(id, comp_data, comp_data2, mode, ltla, compara
                                            maxWidth = 80,
 
                                            cell = function(value, index) {
-                                             figure( comp_data(), index = index, col = "index_value")
+                                             figure( backing_data$comp_data, index = index, col = "index_value")
                                            },
 
                                            style = function(value, index, table_df, col, comparator, mode){
 
                                              #underline colours
-                                             color <- sig_diff_colour(table_df = comp_data(),
+                                             color <- sig_diff_colour(table_df = backing_data$comp_data,
                                                                       col = "index_value",
-                                                                      value = comp_data()$index_value[index],
+                                                                      value = backing_data$comp_data$index_value[index],
                                                                       index = index,
-                                                                      comparator = comp_data2(),
-                                                                      mode = mode())
+                                                                      comparator = backing_data$comp_data2,
+                                                                      mode = backing_data$mode)
 
                                              if(value == " Health Index") {
                                                bar_style(fill = color, length = "100%", colour = "#fff")
@@ -201,25 +238,25 @@ tab_indicators_server <- function(id, comp_data, comp_data2, mode, ltla, compara
                       value1 = colDef(name = "",
                                       maxWidth = 70,
                                       html = T,
-                                      cell = function(value, index, name) {cell_colouring(comp_data(), value, index, "row1", comparator = comp_data2(), mode = mode())}),
+                                      cell = function(value, index, name) {cell_colouring(backing_data$comp_data, value, index, "row1", comparator = backing_data$comp_data2, mode = backing_data$mode)}),
                       value2 = colDef(name = "",
                                       maxWidth = 70,
-                                      cell = function(value, index, name) {cell_colouring(comp_data(), value, index, "row2", comparator = comp_data2(), mode = mode())}),
+                                      cell = function(value, index, name) {cell_colouring(backing_data$comp_data, value, index, "row2", comparator = backing_data$comp_data2, mode = backing_data$mode)}),
                       value3 = colDef(name = "",
                                       maxWidth = 70,
-                                      cell = function(value, index, name) {cell_colouring(comp_data(), value, index, "row3", comparator = comp_data2(), mode = mode())}),
+                                      cell = function(value, index, name) {cell_colouring(backing_data$comp_data, value, index, "row3", comparator = backing_data$comp_data2, mode = backing_data$mode)}),
                       value4 = colDef(name = "",
                                       maxWidth = 70,
-                                      cell = function(value, index, name) {cell_colouring(comp_data(), value, index, "row4", comparator = comp_data2(), mode = mode())}),
+                                      cell = function(value, index, name) {cell_colouring(backing_data$comp_data, value, index, "row4", comparator = backing_data$comp_data2, mode = backing_data$mode)}),
                       value5 = colDef(name = "",
                                       maxWidth = 70,
-                                      cell = function(value, index, name) {cell_colouring(comp_data(), value, index, "row5", comparator = comp_data2(), mode = mode())}),
+                                      cell = function(value, index, name) {cell_colouring(backing_data$comp_data, value, index, "row5", comparator = backing_data$comp_data2, mode = backing_data$mode)}),
                       value6 = colDef(name = "",
                                       maxWidth = 70,
-                                      cell = function(value, index, name) {cell_colouring(comp_data(), value, index, "row6", comparator = comp_data2(), mode = mode())}),
+                                      cell = function(value, index, name) {cell_colouring(backing_data$comp_data, value, index, "row6", comparator = backing_data$comp_data2, mode = backing_data$mode)}),
                       value7 = colDef(name = "",
                                       maxWidth = 70,
-                                      cell = function(value, index, name) {cell_colouring(comp_data(), value, index, "row7", comparator = comp_data2(), mode = mode())}),
+                                      cell = function(value, index, name) {cell_colouring(backing_data$comp_data, value, index, "row7", comparator = backing_data$comp_data2, mode = backing_data$mode)}),
                       comp = colDef(show = FALSE),
                       row_id = colDef(show = FALSE),
                       value = colDef(show = FALSE),

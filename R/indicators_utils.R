@@ -254,17 +254,26 @@ figure <- function(table_df, index, col) {
 
 # ltla <- "Broxbourne"
 # comparator <- "Hertfordshire"
-# subdomain <- "Access to green space"
+# subdomain <- "Mental health"
 
 plot_func <- function(ltla, comparator, subdomain){
   
   ltla_df <- create_comp_data(data = get_data(), area = ltla) %>% 
     filter(ind %in% subdomain)
   
+  if(!missing(comparator)) {
+
   utla_df <-  create_comp_data(data = get_data(), area = comparator) %>% 
     filter(ind %in% subdomain)
   
-  combined_df <- rbind(ltla_df, utla_df) %>% 
+  combined_df <- rbind(ltla_df, utla_df)
+  
+  }else{
+    
+    combined_df <- ltla_df
+  }
+  
+  combined_df <- combined_df %>% 
     discard(~all(is.na(.) | . == " " |  . == "")) %>% 
     select(-c(row_id, order_ind, index_value)) 
   
@@ -283,19 +292,22 @@ plot_func <- function(ltla, comparator, subdomain){
     pivot_longer(cols = starts_with("new"), names_to = "del", values_to = "new") %>% 
     select(-del) %>% 
     mutate(indicator = sub("\\;.*", "", new),
-           value = as.numeric(sub(".*\\;", "", new))) %>% 
-    select(-new)
+           value = as.numeric(sub(".*\\;", "", new)))%>% 
+    select(-new) %>% 
+    arrange(rev(indicator))
+  
+  plot_df$indicator <- sapply(plot_df$indicator, 
+                        FUN = function(x) {paste(strwrap(x, width = 30), collapse = "<br>")})
   
   graph <- plot_ly(plot_df, x = ~indicator, y = ~value, type = "bar", 
-                   legendgroup = ~ AreaName, color = ~AreaName, colors = "Blues") %>% 
+                   legendgroup = ~ AreaName, color = ~AreaName, colors = c("#dcecf3", "#9ccce4")) %>% 
     layout(yaxis = list(tickfont = list(size = 12), title = 'Indicator score'),
-           xaxis = list(title = ""),
+           xaxis = list(title = "", tickfont = list(size = 12), autorange = "reversed"),
            title = "") %>% 
     config(displayModeBar = FALSE) %>% 
     layout(legend = list(orientation = 'h', xanchor = "center", x = 0.5, y= 1.09)) 
   
+  
   return(graph)
 
 }
-
-

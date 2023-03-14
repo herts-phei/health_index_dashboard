@@ -38,7 +38,7 @@ tab_trend_server <- function(id, upper_data, lower_data){
       output$intro_text<-renderUI({
         
         p(paste0("The tab is an interactive plotting tool that allows you to visualise your selected index by various geographies over time. Please select an indicator type below and the 'Go' button to start plotting.")
-          , style = "font-family:Bahnschrift,garamond,serif;font-size:18px;font-weight:lighter;")
+          , style = "font-family:Bahnschrift,garamond,serif;font-size:18px;font-weight:lighter;text-align:left;")
         
       })
       
@@ -46,7 +46,7 @@ tab_trend_server <- function(id, upper_data, lower_data){
       output$graph_intro_text<-renderUI({
         
         p(paste0("Please select an area in the legend on the right to change area for the summary below.")
-          , style = "font-family:Bahnschrift,garamond,serif;font-size:18px;font-weight:lighter;")
+          , style = "font-family:Bahnschrift,garamond,serif;font-size:18px;font-weight:lighter;text-align:left;")
         
       })
       
@@ -79,7 +79,7 @@ tab_trend_server <- function(id, upper_data, lower_data){
             
           }
           
-          p(text, style = "font-family:Bahnschrift,garamond,serif;font-size:18px;font-weight:lighter;")
+          p(text, style = "font-family:Bahnschrift,garamond,serif;font-size:18px;font-weight:lighter;text-align:left;")
           
       })
       
