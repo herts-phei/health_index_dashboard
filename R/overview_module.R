@@ -212,9 +212,9 @@ tab_overview_server <- function(id, map_data){
           summarycards <- fluidRow(width = 6, align = "center",
                    column(width = 4, summaryBox3("Selected Area", score[8], width = 12, icon = "fas fa-map-marked-alt", style = "info")),
                    column(width = 2, summaryBox3("Overall Health Index", score[1], width = 12, icon = "fas fa-chart-bar", style = "info")),
-                   column(width = 2, summaryBox3("Health People Index", score[2], width = 12, icon = "fas fa-users", style = "secondary")),
-                   column(width = 2, summaryBox3("Health Lives Index", score[3], width = 12, icon = "fas fa-heartbeat", style = "secondary")),
-                   column(width = 2, summaryBox3("Health Places Index", score[4], width = 12, icon = "fas fa-map-marker-alt", style = "secondary")))
+                   column(width = 2, summaryBox3("Healthy People Index", score[2], width = 12, icon = "fas fa-users", style = "secondary")),
+                   column(width = 2, summaryBox3("Healthy Lives Index", score[3], width = 12, icon = "fas fa-heartbeat", style = "secondary")),
+                   column(width = 2, summaryBox3("Healthy Places Index", score[4], width = 12, icon = "fas fa-map-marker-alt", style = "secondary")))
           
         }
         
