@@ -201,9 +201,9 @@ tab_overview_server <- function(id, map_data){
         summarycards <- fluidRow(width = 6, align = "center",
                  column(width = 4, summaryBox3("Selected Area", "Hertfordshire", width = 12, icon = "fas fa-map-marked-alt", style = "info")),
                  column(width = 2, summaryBox3("Overall Health Index", herts_value[1], width = 12, icon = "fas fa-chart-bar", style = "info")),
-                 column(width = 2, summaryBox3("Health People Index", herts_value[2], width = 12, icon = "fas fa-users", style = "secondary")),
-                 column(width = 2, summaryBox3("Health Lives Index", herts_value[3], width = 12, icon = "fas fa-heartbeat", style = "secondary")),
-                 column(width = 2, summaryBox3("Health Places Index", herts_value[4], width = 12, icon = "fas fa-map-marker-alt", style = "secondary")))
+                 column(width = 2, summaryBox3("Healthy People Index", herts_value[2], width = 12, icon = "fas fa-users", style = "secondary")),
+                 column(width = 2, summaryBox3("Healthy Lives Index", herts_value[3], width = 12, icon = "fas fa-heartbeat", style = "secondary")),
+                 column(width = 2, summaryBox3("Healthy Places Index", herts_value[4], width = 12, icon = "fas fa-map-marker-alt", style = "secondary")))
         
         if(!is.null(input$map_shape_click$id[1])){
           
