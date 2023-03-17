@@ -38,8 +38,7 @@ tab_indicators_mod <- function(id, label = "indicators"){
 
 # Server ------------------------------------------------------------------
 
-tab_indicators_server <- function(id #comp_data, comp_data2, mode, ltla, comparator
-                                  ){
+tab_indicators_server <- function(id){
 
   
   moduleServer(

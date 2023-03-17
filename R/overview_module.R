@@ -24,8 +24,8 @@ tab_overview_mod <- function(id, label = "overview"){
             box(
               title = "Map",
               width = 8,
-              align = "left",
-              selectInput(ns("comparator_selector"), "Select comparator", choices = c("No Comparator", "Hertfordshire", "Essex", "England"), selected = "No Comparator"),
+              align = "right",
+              column(offset = 1, width = 11, align = "left", selectInput(ns("comparator_selector"), "Select comparator", choices = c("No Comparator", "Hertfordshire", "Essex", "England"), selected = "No Comparator")),
               leafletOutput(ns("map"), width = "100%", height = 660),
               fluidRow(column(width = 6, align = "left",imageOutput(ns("legend"), height = 85)),
                        column(width = 6, align = "right", actionButton(ns("reset"), "Reset to Hertfordshire")))
@@ -36,8 +36,7 @@ tab_overview_mod <- function(id, label = "overview"){
 
 # Server ------------------------------------------------------------------
 
-tab_overview_server <- function(id, map_data #, area, comparator, mode
-                                ){
+tab_overview_server <- function(id, map_data){
   
   moduleServer(
     
