@@ -54,33 +54,33 @@ tab_trend_server <- function(id, upper_data, lower_data){
         
         relayout <- event_data("plotly_relayout")
         hidden_labels <- relayout$hiddenlabels
-
+        
       })
       
       output$trend_text<-renderUI({
-      
+        
         clickedItem <- "Hertfordshire"
         
         if(!is.null(legendClickEvents()$name)){
           
           clickedItem <- legendClickEvents()$name
           
-          }
-
+        }
+        
         sv <- summary_vals(indicator = values$selected,
                            area = clickedItem)
         
-            text <- paste0("In ", sv$current_year, ", ", clickedItem, "’s score in ", values$selected, " was ", sv$current_year_val, ", this is a ", sv$select_area_last_year_diff_sig, " ", sv$select_area_last_year_change, " from ", sv$last_year, ". ")
-      
-            if(input$geography_selector == "Districts"){
-            
-            text <- paste0("For ", values$selected, ", the district that performed the best in the latest year was ", sv$best_ltla_name, " with a score of ", sv$best_ltla_value, ". The district with the lowest score in this domain was ", sv$worst_ltla_name, " with a score of ", sv$worst_ltla_value, ".
+        text <- paste0("In ", sv$current_year, ", ", clickedItem, "’s score in ", values$selected, " was ", sv$current_year_val, ", this is a ", sv$select_area_last_year_diff_sig, " ", sv$select_area_last_year_change, " from ", sv$last_year, ". ")
+        
+        if(input$geography_selector == "Districts"){
+          
+          text <- paste0("For ", values$selected, ", the district that performed the best in the latest year was ", sv$best_ltla_name, " with a score of ", sv$best_ltla_value, ". The district with the lowest score in this domain was ", sv$worst_ltla_name, " with a score of ", sv$worst_ltla_value, ".
                Since last year, the district that showed the biggest improvement in performance for ", values$selected, " was ", sv$most_improved_name, ", which a ", sv$most_improved_sig_change, " increase can be observed. Oppositely, the district that had the largest decrease in score was ", sv$most_worsened_name, " which the decrease was ", sv$most_worsened_sig_change, ".")
-            
-          }
           
-          p(text, style = "font-family:Bahnschrift,garamond,serif;font-size:18px;font-weight:lighter;text-align:left;")
-          
+        }
+        
+        p(text, style = "font-family:Bahnschrift,garamond,serif;font-size:18px;font-weight:lighter;text-align:left;")
+        
       })
       
       output$domain_selector <- renderUI({
@@ -102,7 +102,7 @@ tab_trend_server <- function(id, upper_data, lower_data){
             filter(domain == "Healthy People Domain") %>%
             distinct(subdomain) %>%
             pull(subdomain)
-            
+          
           if(input$domain_selector == "Healthy Lives Domain"){
             
             list <- read.csv("data/domain_lookup.csv") %>%
@@ -134,8 +134,8 @@ tab_trend_server <- function(id, upper_data, lower_data){
         
         selected_list <- c(values$indi_type, values$domain, values$subdomain)
         
-          values$selected <- "Health Index"
-          
+        values$selected <- "Health Index"
+        
         if(selected_list[1] == "domain"){
           
           values$selected <- input$domain_selector
@@ -147,43 +147,42 @@ tab_trend_server <- function(id, upper_data, lower_data){
         
       })
       
-         output$graph <- renderPlotly({
+      output$graph <- renderPlotly({
         
-          graph <- upper_data() %>%
-            filter(ind == values$selected) %>%
-            plot_ly(source = "A", x = ~year, y = ~value, type = "scatter", mode = "", color = ~AreaName, colours = "Set2") %>% 
-            layout(title = paste0("Score for ", tolower(as.character(values$selected))," over time"), 
-                   xaxis = list(title = 'Year'), 
-                   yaxis = list(title = 'Score', range = c(50, 145))) %>% 
-            event_register('plotly_legendclick')
-          
-          if(input$geography_selector == "Districts"){
+        graph <- upper_data() %>%
+          filter(ind == values$selected) %>%
+          plot_ly(source = "A", x = ~year, y = ~value, type = "scatter", mode = "", color = ~AreaName, colours = "Set2") %>% 
+          layout(title = paste0("Score for ", tolower(as.character(values$selected))," over time"), 
+                 xaxis = list(title = 'Year'), 
+                 yaxis = list(title = 'Score', range = c(50, 145))) %>% 
+          event_register('plotly_legendclick')
+        
+        if(input$geography_selector == "Districts"){
           
           data <- lower_data() %>% 
             filter(ind == values$selected)
           
           graph <- plot_ly(source = "A", data = data %>% filter(AreaName %in% c("Broxbourne", "Dacorum", "East Hertfordshire", "Hertsmere", "North Hertfordshire",
-                                                         "Stevenage", "St Albans", "Watford", "Welwyn Hatfield", "Three Rivers")),
-                  x = ~year, y = ~value, type = "scatter", mode = "", color = ~AreaName, colours = "Set2") %>% 
+                                                                                "Stevenage", "St Albans", "Watford", "Welwyn Hatfield", "Three Rivers")),
+                           x = ~year, y = ~value, type = "scatter", mode = "", color = ~AreaName, colours = "Set2") %>% 
             add_trace(data = data %>% filter(AreaName %in% c("Uttlesford", "Epping Forest", "Harlow")),
                       x = ~year, y = ~value, type = "scatter", mode = "", color = ~AreaName, visible = "legendonly") %>%
             layout(title = paste0("Score for ", tolower(as.character(values$selected))," over time"), 
                    xaxis = list(title = 'Year'), 
                    yaxis = list(title = 'Score', range = c(50, 145))) 
           
-          }
-          
-          graph
-      })
-         
-         myPlotlyProxy <- plotlyProxy("graph")
-         
-         legendClickEvents <- reactive({
-           event_data(event =  "plotly_legendclick", source = "A")
-         })
-         
-         
-    })}
+        }
         
-    
-    
+        graph
+      })
+      
+      myPlotlyProxy <- plotlyProxy("graph")
+      
+      legendClickEvents <- reactive({
+        event_data(event =  "plotly_legendclick", source = "A")
+      })
+      
+      
+    })}
+
+

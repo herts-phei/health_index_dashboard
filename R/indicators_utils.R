@@ -132,23 +132,23 @@ sig_diff_colour <- function(table_df, col, value, index, comparator, mode){
     if(value == 0 | is.na(value) == T){ #if zero, it's exactly the same -> amber. 
       
       color <- "#FFC9A5"
-        
+      
     } else if(value < 0 & abs(value) < 20){ #if negative and smaller than 20 (SD for 95% CI), it means health is not significantly worse 
       
       color <- "#FE781F"
-        
+      
     }else if(value < 0 & abs(value) >= 20){ #if negative and bigger or equal to 20 (SD for 95% CI), it means health is significantly worse 
       
       color <- "#D0021B"
-        
+      
     }else if(value > 0 & abs(value) < 20){ #if positive and smaller than 20 (SD for 95% CI), it means health is better 
       
       color <- "#8FAFCA"
-        
+      
     }else if(value > 0 & abs(value) >= 20){ #if positive and bigger or equal to 20 (SD for 95% CI), it means health is significantly better 
       
       color <- "#206095"
-        
+      
     } 
     
   }
@@ -262,12 +262,12 @@ plot_func <- function(ltla, comparator, subdomain){
     filter(ind %in% subdomain)
   
   if(!missing(comparator)) {
-
-  utla_df <-  create_comp_data(data = get_data(), area = comparator) %>% 
-    filter(ind %in% subdomain)
-  
-  combined_df <- rbind(ltla_df, utla_df)
-  
+    
+    utla_df <-  create_comp_data(data = get_data(), area = comparator) %>% 
+      filter(ind %in% subdomain)
+    
+    combined_df <- rbind(ltla_df, utla_df)
+    
   }else{
     
     combined_df <- ltla_df
@@ -297,7 +297,7 @@ plot_func <- function(ltla, comparator, subdomain){
     arrange(rev(indicator))
   
   plot_df$indicator <- sapply(plot_df$indicator, 
-                        FUN = function(x) {paste(strwrap(x, width = 30), collapse = "<br>")})
+                              FUN = function(x) {paste(strwrap(x, width = 30), collapse = "<br>")})
   
   graph <- plot_ly(plot_df, x = ~indicator, y = ~value, type = "bar", 
                    legendgroup = ~ AreaName, color = ~AreaName, colors = c("#dcecf3", "#9ccce4")) %>% 
@@ -309,5 +309,5 @@ plot_func <- function(ltla, comparator, subdomain){
   
   
   return(graph)
-
+  
 }

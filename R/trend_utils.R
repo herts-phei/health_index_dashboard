@@ -1,27 +1,27 @@
 sig_dff <- function(indicator, area){
-
-data <- get_indicators_data("lower")%>%
-  rbind(get_indicators_data("upper")) %>%
-  filter(ind == indicator) %>%
-  filter(AreaName == area) %>%
-  mutate(year = as.numeric(year))
-
-p_value <- summary(lm(value~ year, data))$coefficient[,"Pr(>|t|)"]["(Intercept)"]
-
-if(p_value >= 0.05){
-
-  sig_diff <- T
-
-}else{
-
-  sig_diff <- F
-
-}
-
-return(sig_diff)}
+  
+  data <- get_indicators_data("lower")%>%
+    rbind(get_indicators_data("upper")) %>%
+    filter(ind == indicator) %>%
+    filter(AreaName == area) %>%
+    mutate(year = as.numeric(year))
+  
+  p_value <- summary(lm(value~ year, data))$coefficient[,"Pr(>|t|)"]["(Intercept)"]
+  
+  if(p_value >= 0.05){
+    
+    sig_diff <- T
+    
+  }else{
+    
+    sig_diff <- F
+    
+  }
+  
+  return(sig_diff)}
 
 sig_diff_df <- function(){
-
+  
   data <- get_indicators_data("lower") %>%
     rbind(get_indicators_data("upper")) %>%
     mutate(year = as.numeric(year)) %>%
@@ -31,59 +31,59 @@ sig_diff_df <- function(){
     ungroup() %>%
     mutate(sig_diff = case_when(p_value >= 0.05 ~ "not statistically significant", TRUE ~ "statistically significant"),
            direction = case_when(coefficient > 0 ~ "increasing", TRUE ~ "decreasing"))
-
+  
 }
 
 summary_vals <- function(indicator, area = "Hertfordshire"){
-
+  
   data <- get_indicators_data("lower") %>%
     rbind(get_indicators_data("upper")) %>%
     filter(ind %in% indicator)
-
+  
   years <- sort(unique(data$year), decreasing = T)
-
+  
   worst_ltla <- data %>%
     filter(year == max(year)) %>%
     filter(value == min(value))
-
+  
   best_ltla <- data %>%
     filter(year == max(year)) %>%
     filter(value == max(value))
-
+  
   prev_yr <- data %>%
     filter(year == years[2])
-
+  
   colnames(prev_yr) <- paste0(colnames(prev_yr), "_prev")
-
+  
   latest_yr <- data %>%
     filter(year == years[1])
-
+  
   colnames(latest_yr) <- paste0(colnames(latest_yr), "_latest")
-
+  
   all_df <- cbind(prev_yr, latest_yr) %>%
     mutate(change = case_when(value_latest > value_prev ~ "improved",
-                            value_latest < value_prev ~ "worsened",
-                            TRUE ~"not changed")) %>%
+                              value_latest < value_prev ~ "worsened",
+                              TRUE ~"not changed")) %>%
     mutate(abs_diff = abs(value_latest - value_prev)) %>%
     group_by(change) %>%
     filter(abs_diff %in% max(abs_diff)) %>%
     ungroup() %>%
     mutate(sig_change =  case_when(abs_diff >= 20 ~ "significant",
                                    abs_diff < 20 ~ "non-significant"))
-
+  
   improved_ltla <- all_df %>%
     filter(change == "improved")
-
+  
   worsened_ltla <- all_df %>%
     filter(change == "worsened")
-
+  
   # trends <- data %>%
   #   mutate(year = as.numeric(year)) %>%
   #   summarise(p_value = summary(lm(value~ year))$coefficient[,"Pr(>|t|)"]["year"],
   #             coefficient  = summary(lm(value~ year))$coefficient[,"Estimate"]["year"]) %>%
   #   mutate(sig_diff = case_when(p_value >= 0.05 ~ "not statistically significant", TRUE ~ "statistically significant"),
   #          direction = case_when(coefficient > 0 ~ "increasing", TRUE ~ "decreasing"))
-
+  
   select_area_latest_change <- data %>% 
     filter(AreaName == area)
   
@@ -125,10 +125,10 @@ summary_vals <- function(indicator, area = "Hertfordshire"){
                        select_area_last_year_diff_sig = select_area_all_df$sig_change,
                        last_year = years[2],
                        current_year = years[1])
-
+  
   return(summary_list)
-
-  }
+  
+}
 
 # p_value <- summary(lm(value~ year_num, data))$coefficient[,"Pr(>|t|)"]
 # p_value <- summary(lm(value~ year, data))$coefficient[,"Pr(>|t|)"]["year"]

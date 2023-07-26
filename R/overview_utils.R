@@ -8,15 +8,17 @@ map_data <- function(){
   
   df <- data$df_hioverall %>% 
     filter(`Area Name` %in% c(areas$comp_area, areas$districts_lt))
-
+  
   return(df)
   
-  }
+}
 
-domain_scores <- function(area_select){
+domain_scores <- function(area_select, comparator){
   
   # map_df <- isolate(map_data()$df_hioverall)
   # area_select = "Hertfordshire"
+  
+  if(comparator == "No Comparator"){comparator <- "Hertfordshire"}
   
   data <- get_data()
   
@@ -25,13 +27,15 @@ domain_scores <- function(area_select){
   main_df <- data$df_hioverall 
   subdomain_df <- data$df 
   
+  latest_yr_col <- colnames(main_df)[ncol(main_df)]
+  
   subdomain_scores <- subdomain_df %>% 
-    filter(`Area Name` == area_select) %>% 
+    filter(`Area Name` %in% area_select) %>% 
     select(c("Area Name","Healthy People Domain", "Healthy Lives Domain", "Healthy Places Domain")) 
-    
+  
   info[1] <- main_df %>% 
     filter(`Area Name` == area_select) %>% 
-    pull(`2019`)
+    pull({{latest_yr_col}})
   
   info[2] <- subdomain_scores %>% 
     pull(`Healthy People Domain`)
@@ -45,10 +49,10 @@ domain_scores <- function(area_select){
   #new part
   
   herts_hi <- main_df %>% 
-    filter(`Area Name` == "Hertfordshire") %>% 
-    pull(`2019`)
+    filter(`Area Name` %in% comparator) %>% 
+    pull({{latest_yr_col}})
   
-  # [5] sig diff with Hertfordshire 
+  # [5] sig diff with comparator 
   
   if((abs(info[[1]][1] - herts_hi)) >= 20 & (info[[1]][1] - herts_hi) > 0){
     
@@ -81,11 +85,11 @@ domain_scores <- function(area_select){
     info[7] <- "life expectancy, life satisfaction and various physical health conditions"
     
   }else if(info[6] == "Healthy Lives Domain"){
-   
+    
     info[7] <- "smoking, obesity and sedentary behaviours"
     
   }else if(info[6] == "Healthy Places Domain"){
-      
+    
     info[7] <- "public green space access, crime and air pollution"
     
   }
@@ -96,9 +100,14 @@ domain_scores <- function(area_select){
 }
 
 map_comp_data <- function(map_data, comp){
+
   
-  df <- isolate(map_data$df_hioverall) %>% 
-    select(c(`Area Code`, `Area Name`, "value" = `2019`))
+  df <- isolate(map_data$df_hioverall)
+  
+  latest_yr_col <- colnames(df)[ncol(df)]
+  
+  df <- df %>% 
+    select(c(`Area Code`, `Area Name`, "value" = {{latest_yr_col}}))
   
   comp_df <- df %>% 
     mutate(comp = comp,

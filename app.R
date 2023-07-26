@@ -22,9 +22,13 @@ ui <- dashboardPage(
   
   #header 
   header = dashboardHeader(
-    title = "Health Index 2020 ",
+    title = "Health Index 2021 ",
     tags$img(src = 'team_grey_png.png',
-             title = "Health Index", height = "30px")
+             title = "Health Index", height = "30px"),
+    tags$head(tags$style("body {
+    font-family: 'Bahnschrift', garamond,serif !important;
+                         font-size:18px !important;
+                         font-weight:lighter;}"))
     
   ),
   #sidebar
@@ -37,7 +41,8 @@ ui <- dashboardPage(
     bs4SidebarMenu(id = "tabs",
                    menuItem("Overview", tabName = "overview", icon = icon("home")),
                    menuItem("Indicators", tabName = "indicator", icon = icon("bars")),
-                   menuItem("Trend", tabName = "trend", icon = icon("line-chart")))
+                   menuItem("Trends", tabName = "trend", icon = icon("line-chart")),
+                   menuItem("Information", tabName = "information", icon = icon("circle-info")))
   ),
   
   body = dashboardBody(
@@ -45,11 +50,12 @@ ui <- dashboardPage(
     tabItems(
       tab_overview_mod("overview"),
       tab_indicators_mod("indicators"),
-      tab_trend_mod("trend")
-      
+      tab_trend_mod("trend"),
+      tab_information_mod("information")
     )
   )
 )
+
 
 server <- function(input, output) {
   
@@ -66,7 +72,8 @@ server <- function(input, output) {
   tab_trend_server("trend",
                    upper_data = reactive(rv$upper_indicators_data),
                    lower_data = reactive(rv$lower_indicators_data))
+  
+  tab_information_server("information")
 }
 
 shinyApp(ui, server)
-
